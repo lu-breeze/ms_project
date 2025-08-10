@@ -19,6 +19,8 @@ const _ = grpc.SupportPackageIsVersion6
 type LoginServiceClient interface {
 	GetCaptcha(ctx context.Context, in *CaptchaMessage, opts ...grpc.CallOption) (*CaptchaResponse, error)
 	Register(ctx context.Context, in *RegisterMessage, opts ...grpc.CallOption) (*RegisterResponse, error)
+	Login(ctx context.Context, in *LoginMessage, opts ...grpc.CallOption) (*LoginResponse, error)
+	TokenVerify(ctx context.Context, in *LoginMessage, opts ...grpc.CallOption) (*LoginResponse, error)
 }
 
 type loginServiceClient struct {
@@ -31,7 +33,7 @@ func NewLoginServiceClient(cc grpc.ClientConnInterface) LoginServiceClient {
 
 func (c *loginServiceClient) GetCaptcha(ctx context.Context, in *CaptchaMessage, opts ...grpc.CallOption) (*CaptchaResponse, error) {
 	out := new(CaptchaResponse)
-	err := c.cc.Invoke(ctx, "/login_service_v1.LoginService/GetCaptcha", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/login.LoginService/GetCaptcha", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -40,7 +42,25 @@ func (c *loginServiceClient) GetCaptcha(ctx context.Context, in *CaptchaMessage,
 
 func (c *loginServiceClient) Register(ctx context.Context, in *RegisterMessage, opts ...grpc.CallOption) (*RegisterResponse, error) {
 	out := new(RegisterResponse)
-	err := c.cc.Invoke(ctx, "/login_service_v1.LoginService/Register", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/login.LoginService/Register", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *loginServiceClient) Login(ctx context.Context, in *LoginMessage, opts ...grpc.CallOption) (*LoginResponse, error) {
+	out := new(LoginResponse)
+	err := c.cc.Invoke(ctx, "/login.LoginService/Login", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *loginServiceClient) TokenVerify(ctx context.Context, in *LoginMessage, opts ...grpc.CallOption) (*LoginResponse, error) {
+	out := new(LoginResponse)
+	err := c.cc.Invoke(ctx, "/login.LoginService/TokenVerify", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -53,6 +73,8 @@ func (c *loginServiceClient) Register(ctx context.Context, in *RegisterMessage, 
 type LoginServiceServer interface {
 	GetCaptcha(context.Context, *CaptchaMessage) (*CaptchaResponse, error)
 	Register(context.Context, *RegisterMessage) (*RegisterResponse, error)
+	Login(context.Context, *LoginMessage) (*LoginResponse, error)
+	TokenVerify(context.Context, *LoginMessage) (*LoginResponse, error)
 	mustEmbedUnimplementedLoginServiceServer()
 }
 
@@ -65,6 +87,12 @@ func (*UnimplementedLoginServiceServer) GetCaptcha(context.Context, *CaptchaMess
 }
 func (*UnimplementedLoginServiceServer) Register(context.Context, *RegisterMessage) (*RegisterResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Register not implemented")
+}
+func (*UnimplementedLoginServiceServer) Login(context.Context, *LoginMessage) (*LoginResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Login not implemented")
+}
+func (*UnimplementedLoginServiceServer) TokenVerify(context.Context, *LoginMessage) (*LoginResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method TokenVerify not implemented")
 }
 func (*UnimplementedLoginServiceServer) mustEmbedUnimplementedLoginServiceServer() {}
 
@@ -82,7 +110,7 @@ func _LoginService_GetCaptcha_Handler(srv interface{}, ctx context.Context, dec 
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/login_service_v1.LoginService/GetCaptcha",
+		FullMethod: "/login.LoginService/GetCaptcha",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(LoginServiceServer).GetCaptcha(ctx, req.(*CaptchaMessage))
@@ -100,7 +128,7 @@ func _LoginService_Register_Handler(srv interface{}, ctx context.Context, dec fu
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/login_service_v1.LoginService/Register",
+		FullMethod: "/login.LoginService/Register",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(LoginServiceServer).Register(ctx, req.(*RegisterMessage))
@@ -108,8 +136,44 @@ func _LoginService_Register_Handler(srv interface{}, ctx context.Context, dec fu
 	return interceptor(ctx, in, info, handler)
 }
 
+func _LoginService_Login_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LoginMessage)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LoginServiceServer).Login(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/login.LoginService/Login",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LoginServiceServer).Login(ctx, req.(*LoginMessage))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _LoginService_TokenVerify_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LoginMessage)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LoginServiceServer).TokenVerify(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/login.LoginService/TokenVerify",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LoginServiceServer).TokenVerify(ctx, req.(*LoginMessage))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _LoginService_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "login_service_v1.LoginService",
+	ServiceName: "login.LoginService",
 	HandlerType: (*LoginServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -119,6 +183,14 @@ var _LoginService_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Register",
 			Handler:    _LoginService_Register_Handler,
+		},
+		{
+			MethodName: "Login",
+			Handler:    _LoginService_Login_Handler,
+		},
+		{
+			MethodName: "TokenVerify",
+			Handler:    _LoginService_TokenVerify_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

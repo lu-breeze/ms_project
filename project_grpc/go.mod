@@ -1,1 +1,1 @@
-module project_grpc
+module go_project/ms_project/project_grpc

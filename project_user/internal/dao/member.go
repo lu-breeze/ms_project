@@ -5,10 +5,25 @@ import (
 	"go_project/ms_project/project_user/internal/data/member"
 	"go_project/ms_project/project_user/internal/database"
 	"go_project/ms_project/project_user/internal/database/gorms"
+	"gorm.io/gorm"
 )
 
 type MemberDao struct {
 	conn *gorms.GormConn
+}
+
+func (m *MemberDao) FindMemberById(ctx context.Context, id int64) (mem *member.Member, err error) {
+	err = m.conn.Session(ctx).Where("id=?", id).First(&mem).Error
+	return
+}
+
+func (m *MemberDao) FindMember(ctx context.Context, account string, pwd string) (*member.Member, error) {
+	var mem *member.Member
+	err := m.conn.Session(ctx).Where("account=? and password=?", account, pwd).First(&mem).Error
+	if err == gorm.ErrRecordNotFound {
+		return nil, nil
+	}
+	return mem, err
 }
 
 func NewMemberDao() *MemberDao {

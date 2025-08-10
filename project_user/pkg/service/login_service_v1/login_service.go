@@ -2,11 +2,15 @@ package login_service_v1
 
 import (
 	"context"
+	"github.com/jinzhu/copier"
 	"github.com/redis/go-redis/v9"
 	"go.uber.org/zap"
 	common "go_project/ms_project/project_common"
 	"go_project/ms_project/project_common/encrypts"
 	"go_project/ms_project/project_common/errs"
+	"go_project/ms_project/project_common/jwts"
+	"go_project/ms_project/project_grpc/user/login"
+	"go_project/ms_project/project_user/config"
 	"go_project/ms_project/project_user/internal/dao"
 	"go_project/ms_project/project_user/internal/data/member"
 	"go_project/ms_project/project_user/internal/data/organization"
@@ -15,7 +19,8 @@ import (
 	"go_project/ms_project/project_user/internal/repo"
 	"go_project/ms_project/project_user/pkg/model"
 	"log"
-	"project_grpc/user/login"
+	"strconv"
+	"strings"
 	"time"
 )
 
@@ -137,4 +142,71 @@ func (ls *LoginService) Register(ctx context.Context, msg *login.RegisterMessage
 		return nil
 	})
 	return &login.RegisterResponse{}, err
+}
+
+func (ls *LoginService) Login(ctx context.Context, msg *login.LoginMessage) (*login.LoginResponse, error) {
+	c := context.Background()
+	//从数据库获取用户信息
+	pwd := encrypts.Md5(msg.Password)
+	mem, err := ls.memberRepo.FindMember(c, msg.Account, pwd)
+	if err != nil {
+		zap.L().Error("Login向db查询用户信息失败", zap.Error(err))
+		return nil, errs.GrpcError(model.DBError)
+	}
+	if mem == nil {
+		return nil, errs.GrpcError(model.AccountOrPwdError)
+	}
+	memMsg := &login.MemberMessage{}
+	err = copier.Copy(memMsg, mem)
+	memMsg.Code, _ = encrypts.EncryptInt64(memMsg.Id, model.AESKey)
+	//根据id查询组织
+	orgs, err := ls.organizationRepo.FindOrganizationByMemId(c, mem.Id)
+	if err != nil {
+		zap.L().Error("Login向db查询用户信息失败", zap.Error(err))
+		return nil, errs.GrpcError(model.DBError)
+	}
+	var orgsMessage []*login.OrganizationMessage
+	err = copier.Copy(&orgsMessage, orgs)
+	for _, v := range orgsMessage {
+		v.Code, _ = encrypts.EncryptInt64(v.Id, model.AESKey)
+	}
+	//jwt生成token
+	memIdStr := strconv.FormatInt(mem.Id, 10)
+	exp := time.Duration(config.C.JwtConfig.AccessExp*3600*24) * time.Second
+	rExp := time.Duration(config.C.JwtConfig.RefreshExp*3600*24) * time.Second
+	token := jwts.CreateToken(memIdStr, exp, config.C.JwtConfig.AccessSecret, rExp, config.C.JwtConfig.RefreshSecret)
+	tokenList := &login.TokenMessage{
+		AccessToken:    token.AccessToken,
+		RefreshToken:   token.RefreshToken,
+		AccessTokenExp: token.AccessExp,
+		TokenType:      "bearer",
+	}
+	return &login.LoginResponse{
+		Member:           memMsg,
+		OrganizationList: orgsMessage,
+		TokenList:        tokenList,
+	}, nil
+}
+
+func (ls *LoginService) TokenVerify(ctx context.Context, msg *login.LoginMessage) (*login.LoginResponse, error) {
+	token := msg.Token
+	if strings.Contains(token, "bearer ") {
+		token = strings.ReplaceAll(token, "bearer ", "")
+	}
+	parseToken, err := jwts.ParseToken(token, config.C.JwtConfig.AccessSecret)
+	if err != nil {
+		zap.L().Error("TokenVerify解析token失败", zap.Error(err))
+		return nil, errs.GrpcError(model.NoLogin)
+	}
+	//数据库查询id
+	id, _ := strconv.ParseInt(parseToken, 10, 64)
+	memberById, err := ls.memberRepo.FindMemberById(context.Background(), id)
+	if err != nil {
+		zap.L().Error("TokenVerify向db查询用户信息失败", zap.Error(err))
+		return nil, errs.GrpcError(model.DBError)
+	}
+	memMsg := &login.MemberMessage{}
+	copier.Copy(memMsg, memberById)
+	memMsg.Code, _ = encrypts.EncryptInt64(memMsg.Id, model.AESKey)
+	return &login.LoginResponse{Member: memMsg}, nil
 }

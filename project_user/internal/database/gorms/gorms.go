@@ -27,7 +27,7 @@ func init() {
 		Logger: logger.Default.LogMode(logger.Info),
 	})
 	if err != nil {
-		panic("连接数据库失败, error=" + err.Error())
+		panic("连接MySQL数据库失败, error=" + err.Error())
 	} else {
 		log.Println("mysql连接成功")
 	}

@@ -4,13 +4,13 @@ import (
 	"github.com/gin-gonic/gin"
 	"go_project/ms_project/project_common/discovery"
 	"go_project/ms_project/project_common/logs"
+	"go_project/ms_project/project_grpc/user/login"
 	"go_project/ms_project/project_user/config"
 	loginServiceV1 "go_project/ms_project/project_user/pkg/service/login_service_v1"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/resolver"
 	"log"
 	"net"
-	"project_grpc/user/login"
 )
 
 //负责路由注册

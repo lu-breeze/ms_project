@@ -4,11 +4,11 @@ import (
 	"go_project/ms_project/project_api/config"
 	"go_project/ms_project/project_common/discovery"
 	"go_project/ms_project/project_common/logs"
+	"go_project/ms_project/project_grpc/user/login"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 	"google.golang.org/grpc/resolver"
 	"log"
-	"project_grpc/user/login"
 )
 
 var LoginServiceClient login.LoginServiceClient

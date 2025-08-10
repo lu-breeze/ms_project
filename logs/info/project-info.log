@@ -32,3 +32,72 @@
 {"level":"INFO","time":"2025-08-07T17:58:59.283+0800","caller":"login_service_v1/login_service.go:51","msg":"短信平台调用成功，发送短信"}
 {"level":"INFO","time":"2025-08-07T17:59:42.264+0800","caller":"login_service_v1/login_service.go:51","msg":"短信平台调用成功，发送短信"}
 {"level":"INFO","time":"2025-08-07T18:07:02.608+0800","caller":"login_service_v1/login_service.go:51","msg":"短信平台调用成功，发送短信"}
+{"level":"INFO","time":"2025-08-08T11:04:01.903+0800","caller":"login_service_v1/login_service.go:52","msg":"短信平台调用成功，发送短信"}
+{"level":"ERROR","time":"2025-08-08T11:04:06.717+0800","caller":"login_service_v1/login_service.go:149","msg":"Login向db查询用户信息失败","error":"Error 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '?and password=? ORDER BY `ms_member`.`id` LIMIT ?' at line 1"}
+{"level":"INFO","time":"2025-08-08T15:32:36.133+0800","caller":"login_service_v1/login_service.go:55","msg":"短信平台调用成功，发送短信"}
+{"level":"ERROR","time":"2025-08-09T16:19:48.296+0800","caller":"login_service_v1/login_service.go:194","msg":"TokenVerify解析token失败","error":"token contains an invalid number of segments"}
+{"level":"ERROR","time":"2025-08-09T16:29:17.061+0800","caller":"login_service_v1/login_service.go:194","msg":"TokenVerify解析token失败","error":"tokenstring should not contain 'bearer '"}
+{"level":"ERROR","time":"2025-08-10T10:01:06.820+0800","caller":"discovery/discovery.go:117","msg":"register failed","error":"context deadline exceeded"}
+{"level":"ERROR","time":"2025-08-10T10:01:07.128+0800","caller":"discovery/discovery.go:117","msg":"register failed","error":"context deadline exceeded"}
+{"level":"ERROR","time":"2025-08-10T10:01:09.839+0800","caller":"discovery/discovery.go:117","msg":"register failed","error":"context deadline exceeded"}
+{"level":"ERROR","time":"2025-08-10T10:01:10.130+0800","caller":"discovery/discovery.go:117","msg":"register failed","error":"context deadline exceeded"}
+{"level":"ERROR","time":"2025-08-10T10:01:12.840+0800","caller":"discovery/discovery.go:117","msg":"register failed","error":"context deadline exceeded"}
+{"level":"ERROR","time":"2025-08-10T10:01:13.130+0800","caller":"discovery/discovery.go:117","msg":"register failed","error":"context deadline exceeded"}
+{"level":"ERROR","time":"2025-08-10T10:01:15.841+0800","caller":"discovery/discovery.go:117","msg":"register failed","error":"context deadline exceeded"}
+{"level":"ERROR","time":"2025-08-10T10:01:16.131+0800","caller":"discovery/discovery.go:117","msg":"register failed","error":"context deadline exceeded"}
+{"level":"ERROR","time":"2025-08-10T10:01:18.842+0800","caller":"discovery/discovery.go:117","msg":"register failed","error":"context deadline exceeded"}
+{"level":"ERROR","time":"2025-08-10T10:01:19.132+0800","caller":"discovery/discovery.go:117","msg":"register failed","error":"context deadline exceeded"}
+{"level":"ERROR","time":"2025-08-10T10:01:21.842+0800","caller":"discovery/discovery.go:117","msg":"register failed","error":"context deadline exceeded"}
+{"level":"ERROR","time":"2025-08-10T10:01:22.133+0800","caller":"discovery/discovery.go:117","msg":"register failed","error":"context deadline exceeded"}
+{"level":"ERROR","time":"2025-08-10T10:01:24.843+0800","caller":"discovery/discovery.go:117","msg":"register failed","error":"context deadline exceeded"}
+{"level":"ERROR","time":"2025-08-10T10:01:25.133+0800","caller":"discovery/discovery.go:117","msg":"register failed","error":"context deadline exceeded"}
+{"level":"ERROR","time":"2025-08-10T10:01:27.843+0800","caller":"discovery/discovery.go:117","msg":"register failed","error":"context deadline exceeded"}
+{"level":"ERROR","time":"2025-08-10T10:01:28.133+0800","caller":"discovery/discovery.go:117","msg":"register failed","error":"context deadline exceeded"}
+{"level":"ERROR","time":"2025-08-10T10:01:30.843+0800","caller":"discovery/discovery.go:117","msg":"register failed","error":"context deadline exceeded"}
+{"level":"ERROR","time":"2025-08-10T10:01:31.134+0800","caller":"discovery/discovery.go:117","msg":"register failed","error":"context deadline exceeded"}
+{"level":"ERROR","time":"2025-08-10T10:01:33.844+0800","caller":"discovery/discovery.go:117","msg":"register failed","error":"context deadline exceeded"}
+{"level":"ERROR","time":"2025-08-10T10:01:34.134+0800","caller":"discovery/discovery.go:117","msg":"register failed","error":"context deadline exceeded"}
+{"level":"ERROR","time":"2025-08-10T10:01:36.845+0800","caller":"discovery/discovery.go:117","msg":"register failed","error":"context deadline exceeded"}
+{"level":"ERROR","time":"2025-08-10T10:01:37.135+0800","caller":"discovery/discovery.go:117","msg":"register failed","error":"context deadline exceeded"}
+{"level":"ERROR","time":"2025-08-10T10:01:39.845+0800","caller":"discovery/discovery.go:117","msg":"register failed","error":"context deadline exceeded"}
+{"level":"ERROR","time":"2025-08-10T10:01:40.136+0800","caller":"discovery/discovery.go:117","msg":"register failed","error":"context deadline exceeded"}
+{"level":"ERROR","time":"2025-08-10T10:01:42.846+0800","caller":"discovery/discovery.go:117","msg":"register failed","error":"context deadline exceeded"}
+{"level":"ERROR","time":"2025-08-10T10:01:43.136+0800","caller":"discovery/discovery.go:117","msg":"register failed","error":"context deadline exceeded"}
+{"level":"ERROR","time":"2025-08-10T10:01:45.846+0800","caller":"discovery/discovery.go:117","msg":"register failed","error":"context deadline exceeded"}
+{"level":"ERROR","time":"2025-08-10T10:01:46.137+0800","caller":"discovery/discovery.go:117","msg":"register failed","error":"context deadline exceeded"}
+{"level":"ERROR","time":"2025-08-10T10:01:48.847+0800","caller":"discovery/discovery.go:117","msg":"register failed","error":"context deadline exceeded"}
+{"level":"ERROR","time":"2025-08-10T10:01:49.138+0800","caller":"discovery/discovery.go:117","msg":"register failed","error":"context deadline exceeded"}
+{"level":"ERROR","time":"2025-08-10T10:01:51.847+0800","caller":"discovery/discovery.go:117","msg":"register failed","error":"context deadline exceeded"}
+{"level":"ERROR","time":"2025-08-10T10:01:52.139+0800","caller":"discovery/discovery.go:117","msg":"register failed","error":"context deadline exceeded"}
+{"level":"ERROR","time":"2025-08-10T10:01:54.850+0800","caller":"discovery/discovery.go:117","msg":"register failed","error":"context deadline exceeded"}
+{"level":"ERROR","time":"2025-08-10T10:01:55.139+0800","caller":"discovery/discovery.go:117","msg":"register failed","error":"context deadline exceeded"}
+{"level":"ERROR","time":"2025-08-10T10:01:57.850+0800","caller":"discovery/discovery.go:117","msg":"register failed","error":"context deadline exceeded"}
+{"level":"ERROR","time":"2025-08-10T10:01:58.139+0800","caller":"discovery/discovery.go:117","msg":"register failed","error":"context deadline exceeded"}
+{"level":"ERROR","time":"2025-08-10T10:02:00.851+0800","caller":"discovery/discovery.go:117","msg":"register failed","error":"context deadline exceeded"}
+{"level":"ERROR","time":"2025-08-10T10:02:01.140+0800","caller":"discovery/discovery.go:117","msg":"register failed","error":"context deadline exceeded"}
+{"level":"ERROR","time":"2025-08-10T10:02:03.851+0800","caller":"discovery/discovery.go:117","msg":"register failed","error":"context deadline exceeded"}
+{"level":"ERROR","time":"2025-08-10T10:02:04.038+0800","caller":"discovery/resolver.go:101","msg":"sync failed","error":"context deadline exceeded"}
+{"level":"ERROR","time":"2025-08-10T10:02:04.044+0800","caller":"discovery/resolver.go:101","msg":"sync failed","error":"context deadline exceeded"}
+{"level":"ERROR","time":"2025-08-10T10:02:04.140+0800","caller":"discovery/discovery.go:117","msg":"register failed","error":"context deadline exceeded"}
+{"level":"ERROR","time":"2025-08-10T10:02:06.852+0800","caller":"discovery/discovery.go:117","msg":"register failed","error":"context deadline exceeded"}
+{"level":"ERROR","time":"2025-08-10T10:02:07.141+0800","caller":"discovery/discovery.go:117","msg":"register failed","error":"context deadline exceeded"}
+{"level":"ERROR","time":"2025-08-10T10:02:09.853+0800","caller":"discovery/discovery.go:117","msg":"register failed","error":"context deadline exceeded"}
+{"level":"ERROR","time":"2025-08-10T10:02:10.143+0800","caller":"discovery/discovery.go:117","msg":"register failed","error":"context deadline exceeded"}
+{"level":"ERROR","time":"2025-08-10T10:02:12.853+0800","caller":"discovery/discovery.go:117","msg":"register failed","error":"context deadline exceeded"}
+{"level":"ERROR","time":"2025-08-10T10:02:13.143+0800","caller":"discovery/discovery.go:117","msg":"register failed","error":"context deadline exceeded"}
+{"level":"ERROR","time":"2025-08-10T10:02:15.854+0800","caller":"discovery/discovery.go:117","msg":"register failed","error":"context deadline exceeded"}
+{"level":"ERROR","time":"2025-08-10T10:02:16.144+0800","caller":"discovery/discovery.go:117","msg":"register failed","error":"context deadline exceeded"}
+{"level":"ERROR","time":"2025-08-10T10:02:18.854+0800","caller":"discovery/discovery.go:117","msg":"register failed","error":"context deadline exceeded"}
+{"level":"ERROR","time":"2025-08-10T10:02:19.144+0800","caller":"discovery/discovery.go:117","msg":"register failed","error":"context deadline exceeded"}
+{"level":"ERROR","time":"2025-08-10T10:02:21.854+0800","caller":"discovery/discovery.go:117","msg":"register failed","error":"context deadline exceeded"}
+{"level":"ERROR","time":"2025-08-10T10:02:22.145+0800","caller":"discovery/discovery.go:117","msg":"register failed","error":"context deadline exceeded"}
+{"level":"ERROR","time":"2025-08-10T10:02:24.855+0800","caller":"discovery/discovery.go:117","msg":"register failed","error":"context deadline exceeded"}
+{"level":"ERROR","time":"2025-08-10T10:02:25.145+0800","caller":"discovery/discovery.go:117","msg":"register failed","error":"context deadline exceeded"}
+{"level":"ERROR","time":"2025-08-10T10:02:27.855+0800","caller":"discovery/discovery.go:117","msg":"register failed","error":"context deadline exceeded"}
+{"level":"ERROR","time":"2025-08-10T10:02:28.146+0800","caller":"discovery/discovery.go:117","msg":"register failed","error":"context deadline exceeded"}
+{"level":"ERROR","time":"2025-08-10T10:02:30.857+0800","caller":"discovery/discovery.go:117","msg":"register failed","error":"context deadline exceeded"}
+{"level":"ERROR","time":"2025-08-10T10:02:31.147+0800","caller":"discovery/discovery.go:117","msg":"register failed","error":"context deadline exceeded"}
+{"level":"ERROR","time":"2025-08-10T10:02:33.858+0800","caller":"discovery/discovery.go:117","msg":"register failed","error":"context deadline exceeded"}
+{"level":"ERROR","time":"2025-08-10T10:02:34.148+0800","caller":"discovery/discovery.go:117","msg":"register failed","error":"context deadline exceeded"}
+{"level":"ERROR","time":"2025-08-10T10:02:36.860+0800","caller":"discovery/discovery.go:117","msg":"register failed","error":"context deadline exceeded"}
+{"level":"ERROR","time":"2025-08-10T10:02:37.149+0800","caller":"discovery/discovery.go:117","msg":"register failed","error":"context deadline exceeded"}

@@ -5,5 +5,5 @@ use (
 	./project_user
 	./project_api
 	./project_grpc
-
+	./project_project
 )

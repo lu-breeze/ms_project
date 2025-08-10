@@ -1,0 +1,34 @@
+server:
+  addr: "127.0.0.1:8081"
+  name: "project_project"
+zap:
+  debugFileName: "D:\\go_project\\ms_project\\logs\\debug\\project-debug.log"
+  infoFileName:  "D:\\go_project\\ms_project\\logs\\info\\project-info.log"
+  warnFileName:  "D:\\go_project\\ms_project\\logs\\error\\project-error.log"
+  maxSize: 500,
+  maxAge: 28,
+  MaxBackups: 3
+redis:
+  host: "localhost"
+  port: 6379
+  password: ""
+  db: 0
+grpc:
+    addr: "127.0.0.1:8882"
+    name: "project"
+    version: "1.0.0"
+    weight: 2
+etcd:
+  addrs:
+    - "127.0.0.1:2379"
+mysql:
+  username: root
+  password: root
+  host: 127.0.0.1
+  port: 3309
+  db: msproject
+jwt:
+  accessExp: 7
+  refreshExp: 14
+  accessSecret: msproject
+  refreshSecret: ms_project
