@@ -6,6 +6,8 @@ import (
 	"go_project/ms_project/project_common/logs"
 	"go_project/ms_project/project_grpc/project"
 	"go_project/ms_project/project_project/config"
+	"go_project/ms_project/project_project/internal/interceptor"
+	"go_project/ms_project/project_project/internal/rpc"
 	"go_project/ms_project/project_project/pkg/service/project_service_v1"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/resolver"
@@ -53,7 +55,7 @@ func RegisterGrpc() *grpc.Server {
 			project.RegisterProjectServiceServer(g, project_service_v1.New())
 		},
 	}
-	s := grpc.NewServer()
+	s := grpc.NewServer(interceptor.New().Cache())
 	c.RegisterFunc(s)
 	lis, err := net.Listen("tcp", c.Addr)
 	if err != nil {
@@ -84,4 +86,8 @@ func RegisterEtcdServer() {
 	if err != nil {
 		log.Fatalln(err)
 	}
+}
+
+func InitUserRpc() {
+	rpc.InitRpcUserClient()
 }

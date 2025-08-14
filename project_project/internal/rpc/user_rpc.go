@@ -1,10 +1,10 @@
-package user
+package rpc
 
 import (
-	"go_project/ms_project/project_api/config"
 	"go_project/ms_project/project_common/discovery"
 	"go_project/ms_project/project_common/logs"
 	"go_project/ms_project/project_grpc/user/login"
+	"go_project/ms_project/project_project/config"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 	"google.golang.org/grpc/resolver"

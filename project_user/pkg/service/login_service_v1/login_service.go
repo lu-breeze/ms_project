@@ -2,6 +2,8 @@ package login_service_v1
 
 import (
 	"context"
+	"encoding/json"
+	"fmt"
 	"github.com/jinzhu/copier"
 	"github.com/redis/go-redis/v9"
 	"go.uber.org/zap"
@@ -9,6 +11,7 @@ import (
 	"go_project/ms_project/project_common/encrypts"
 	"go_project/ms_project/project_common/errs"
 	"go_project/ms_project/project_common/jwts"
+	"go_project/ms_project/project_common/tms"
 	"go_project/ms_project/project_grpc/user/login"
 	"go_project/ms_project/project_user/config"
 	"go_project/ms_project/project_user/internal/dao"
@@ -159,6 +162,8 @@ func (ls *LoginService) Login(ctx context.Context, msg *login.LoginMessage) (*lo
 	memMsg := &login.MemberMessage{}
 	err = copier.Copy(memMsg, mem)
 	memMsg.Code, _ = encrypts.EncryptInt64(memMsg.Id, model.AESKey)
+	memMsg.LastLoginTime = tms.FormatByMill(mem.LastLoginTime)
+	memMsg.CreateTime = tms.FormatByMill(mem.CreateTime)
 	//根据id查询组织
 	orgs, err := ls.organizationRepo.FindOrganizationByMemId(c, mem.Id)
 	if err != nil {
@@ -169,6 +174,12 @@ func (ls *LoginService) Login(ctx context.Context, msg *login.LoginMessage) (*lo
 	err = copier.Copy(&orgsMessage, orgs)
 	for _, v := range orgsMessage {
 		v.Code, _ = encrypts.EncryptInt64(v.Id, model.AESKey)
+		v.OwnerCode = memMsg.Code
+		o := organization.ToMap(orgs)[v.Id]
+		v.CreateTime = tms.FormatByMill(o.CreateTime)
+	}
+	if len(orgs) > 0 {
+		memMsg.OrganizationCode, _ = encrypts.EncryptInt64(orgs[0].Id, model.AESKey)
 	}
 	//jwt生成token
 	memIdStr := strconv.FormatInt(mem.Id, 10)
@@ -181,6 +192,13 @@ func (ls *LoginService) Login(ctx context.Context, msg *login.LoginMessage) (*lo
 		AccessTokenExp: token.AccessExp,
 		TokenType:      "bearer",
 	}
+	//member orgs放入缓存
+	go func() {
+		marshal, _ := json.Marshal(mem)
+		ls.cache.Put(c, model.Member+"::"+memIdStr, string(marshal), exp)
+		orgsJson, _ := json.Marshal(orgs)
+		ls.cache.Put(c, model.MemberOrganization+"::"+memIdStr, string(orgsJson), exp)
+	}()
 	return &login.LoginResponse{
 		Member:           memMsg,
 		OrganizationList: orgsMessage,
@@ -198,15 +216,81 @@ func (ls *LoginService) TokenVerify(ctx context.Context, msg *login.LoginMessage
 		zap.L().Error("TokenVerify解析token失败", zap.Error(err))
 		return nil, errs.GrpcError(model.NoLogin)
 	}
-	//数据库查询id
-	id, _ := strconv.ParseInt(parseToken, 10, 64)
-	memberById, err := ls.memberRepo.FindMemberById(context.Background(), id)
+	//缓存中查询id
+	memJson, err := ls.cache.Get(context.Background(), model.Member+"::"+parseToken)
 	if err != nil {
-		zap.L().Error("TokenVerify向db查询用户信息失败", zap.Error(err))
+		zap.L().Error("TokenVerify从缓存获取用户信息失败", zap.Error(err))
+		return nil, errs.GrpcError(model.NoLogin)
+	}
+	if memJson == "" {
+		zap.L().Error("TokenVerify缓存中用户信息已过期")
+		return nil, errs.GrpcError(model.NoLogin)
+	}
+	memberById := &member.Member{}
+	json.Unmarshal([]byte(memJson), memberById)
+	//数据库查询id
+	/*id, _ := strconv.ParseInt(parseToken, 10, 64)
+	//memberById, err := ls.memberRepo.FindMemberById(context.Background(), id)
+	//if err != nil {
+	//	zap.L().Error("TokenVerify向db查询用户信息失败", zap.Error(err))
+	//	return nil, errs.GrpcError(model.DBError)
+	}*/
+	memMsg := &login.MemberMessage{}
+	copier.Copy(memMsg, memberById)
+	memMsg.Code, _ = encrypts.EncryptInt64(memMsg.Id, model.AESKey)
+
+	orgsJson, err := ls.cache.Get(context.Background(), model.MemberOrganization+"::"+parseToken)
+	if err != nil {
+		zap.L().Error("TokenVerify从缓存获取用户组织信息失败", zap.Error(err))
+		return nil, errs.GrpcError(model.NoLogin)
+	}
+	if orgsJson == "" {
+		zap.L().Error("TokenVerify缓存中用户组织信息已过期")
+		return nil, errs.GrpcError(model.NoLogin)
+	}
+	var orgs []*organization.Organization
+	json.Unmarshal([]byte(orgsJson), &orgs)
+
+	if len(orgs) > 0 {
+		memMsg.OrganizationCode, _ = encrypts.EncryptInt64(orgs[0].Id, model.AESKey)
+	}
+	memMsg.CreateTime = tms.FormatByMill(memberById.CreateTime)
+	return &login.LoginResponse{Member: memMsg}, nil
+}
+
+func (l *LoginService) MyOrgList(ctx context.Context, msg *login.UserMessage) (*login.OrgListResponse, error) {
+	fmt.Println("MyOrgList")
+	memId := msg.MemId
+	orgs, err := l.organizationRepo.FindOrganizationByMemId(ctx, memId)
+	if err != nil {
+		zap.L().Error("MyOrgList FindOrganizationByMemId err", zap.Error(err))
+		return nil, errs.GrpcError(model.DBError)
+	}
+	var orgsMessage []*login.OrganizationMessage
+	err = copier.Copy(&orgsMessage, orgs)
+	for _, org := range orgsMessage {
+		org.Code, _ = encrypts.EncryptInt64(org.Id, model.AESKey)
+	}
+	return &login.OrgListResponse{OrganizationList: orgsMessage}, nil
+}
+
+func (ls *LoginService) FindMemInfoById(ctx context.Context, msg *login.UserMessage) (*login.MemberMessage, error) {
+	memberById, err := ls.memberRepo.FindMemberById(context.Background(), msg.MemId)
+	if err != nil {
+		zap.L().Error("FindMemInfoById向db查询用户信息失败", zap.Error(err))
 		return nil, errs.GrpcError(model.DBError)
 	}
 	memMsg := &login.MemberMessage{}
 	copier.Copy(memMsg, memberById)
 	memMsg.Code, _ = encrypts.EncryptInt64(memMsg.Id, model.AESKey)
-	return &login.LoginResponse{Member: memMsg}, nil
+	orgs, err := ls.organizationRepo.FindOrganizationByMemId(context.Background(), memberById.Id)
+	if err != nil {
+		zap.L().Error("FindMemInfoById向db查询用户信息失败", zap.Error(err))
+		return nil, errs.GrpcError(model.DBError)
+	}
+	if len(orgs) > 0 {
+		memMsg.OrganizationCode, _ = encrypts.EncryptInt64(orgs[0].Id, model.AESKey)
+	}
+	memMsg.CreateTime = tms.FormatByMill(memberById.CreateTime)
+	return memMsg, nil
 }

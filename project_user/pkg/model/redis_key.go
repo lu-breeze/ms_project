@@ -1,5 +1,7 @@
 package model
 
-var (
-	RegisterRedisKey = "REGISTER_" //+手机号
+const (
+	RegisterRedisKey   = "REGISTER_" //+手机号
+	Member             = "MEMBER"
+	MemberOrganization = "MEMBER_ORGANIZATION" //+memberId
 )
