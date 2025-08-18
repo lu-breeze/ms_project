@@ -1,0 +1,27 @@
+package dao
+
+import (
+	"context"
+	"go_project/ms_project/project_project/internal/data"
+	"go_project/ms_project/project_project/internal/database/gorms"
+)
+
+type SourceLinkDao struct {
+	conn *gorms.GormConn
+}
+
+func (s *SourceLinkDao) Save(ctx context.Context, link *data.SourceLink) error {
+	return s.conn.Session(ctx).Save(&link).Error
+}
+
+func (s *SourceLinkDao) FindByTaskCode(ctx context.Context, taskCode int64) (list []*data.SourceLink, err error) {
+	session := s.conn.Session(ctx)
+	err = session.Model(&data.SourceLink{}).Where("link_code=?", taskCode).Find(&list).Error
+	return
+}
+
+func NewSourceLinkDao() *SourceLinkDao {
+	return &SourceLinkDao{
+		conn: gorms.New(),
+	}
+}

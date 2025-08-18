@@ -65,6 +65,14 @@ func (u *HandlerUser) register(c *gin.Context) {
 	c.JSON(http.StatusOK, result.Success("注册成功"))
 }
 
+func GetIp(c *gin.Context) string {
+	ip := c.ClientIP()
+	if ip == "::1" {
+		ip = "127.0.0.1"
+	}
+	return ip
+}
+
 func (u *HandlerUser) login(c *gin.Context) {
 	//获取请求参数
 	result := &common.Result{}
@@ -81,6 +89,7 @@ func (u *HandlerUser) login(c *gin.Context) {
 		c.JSON(http.StatusOK, result.Fail(http.StatusBadRequest, "数据转换错误"))
 		return
 	}
+	msg.Ip = GetIp(c)
 	loginRsp, err := rpc.LoginServiceClient.Login(ctx, msg)
 	if err != nil {
 		code, msg := errs.ParseGrpcError(err)

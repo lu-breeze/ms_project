@@ -23,6 +23,19 @@ func EncryptInt64(id int64, keyText string) (cipherStr string, err error) {
 	return Encrypt(idStr, keyText)
 }
 
+var AESKey = "sdfgyrhgbxcdgryfhgywertd"
+
+func DecryptNoErr(cipherStr string) int64 {
+	decrypt, _ := Decrypt(cipherStr, AESKey)
+	parseInt, _ := strconv.ParseInt(decrypt, 10, 64)
+	return parseInt
+}
+
+func EncryptNoErr(id int64) string {
+	str, _ := EncryptInt64(id, AESKey)
+	return str
+}
+
 func Encrypt(plainText string, keyText string) (cipherStr string, err error) {
 	// 转换成字节数据, 方便加密
 	plainByte := []byte(plainText)

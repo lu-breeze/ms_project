@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"go.uber.org/zap"
 	"go_project/ms_project/project_common/encrypts"
-	"go_project/ms_project/project_grpc/project"
 	"go_project/ms_project/project_project/internal/dao"
 	"go_project/ms_project/project_project/internal/repo"
 	"google.golang.org/grpc"
@@ -19,7 +18,7 @@ type CacheInterceptor struct {
 
 func New() *CacheInterceptor {
 	cacheMap := make(map[string]any)
-	cacheMap["/project.service.v1.ProjectService/FindProjectByMemId"] = &project.MyProjectResponse{}
+	//cacheMap["/project.service.v1.ProjectService/FindProjectByMemId"] = &project.MyProjectResponse{}
 	return &CacheInterceptor{
 		cache:    dao.Rc,
 		cacheMap: cacheMap,

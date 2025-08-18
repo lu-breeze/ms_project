@@ -5,48 +5,69 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="05452fb6-d85f-4f76-b7db-931fd499fbd5" name="更改" comment="">
-      <change afterPath="$PROJECT_DIR$/project_api/pkg/model/menu/menu.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project_api/pkg/model/page.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project_api/pkg/model/pro/pro.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project_common/tms/tms.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project_project/internal/dao/project.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project_project/internal/dao/project_template.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project_project/internal/dao/task_stages_template.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project_project/internal/data/task/task.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project_project/internal/interceptor/cache.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project_project/internal/repo/project.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project_project/internal/repo/task.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project_project/internal/rpc/user_rpc.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project_project/pkg/service/project_service_v1/project_collect.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project_user/internal/interceptor/cache.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project_api/api/midd/log_time.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project_api/api/project/task.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project_api/pkg/model/task_log.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project_api/pkg/model/task_work_time.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project_api/pkg/model/tasks/task.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project_api/pkg/model/tasks/task_member.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project_api/pkg/model/tasks/task_stages.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project_api/pkg/model/upload_file.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project_common/fs/fs.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project_project/api/proto/task_gen.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project_project/api/proto/task_service.proto" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project_project/internal/dao/file.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project_project/internal/dao/project_log.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project_project/internal/dao/source_link.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project_project/internal/dao/task.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project_project/internal/dao/task_stages.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project_project/internal/dao/task_work_time.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project_project/internal/data/file.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project_project/internal/data/member.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project_project/internal/data/project_log.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project_project/internal/data/source_link.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project_project/internal/data/task_stages.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project_project/internal/data/task_work_time.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project_project/internal/repo/file.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project_project/internal/repo/project_log.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project_project/internal/repo/source_link.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project_project/internal/repo/task_work_time.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project_project/pkg/service/task_service.v1/task_service.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/debug/project-debug.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/debug/project-debug.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/error/project-error.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/error/project-error.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/info/project-info.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/info/project-info.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/project_api/api/midd/midd.go" beforeDir="false" afterPath="$PROJECT_DIR$/project_api/api/midd/midd.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project_api/api/project/project.go" beforeDir="false" afterPath="$PROJECT_DIR$/project_api/api/project/project.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/project_api/api/project/router.go" beforeDir="false" afterPath="$PROJECT_DIR$/project_api/api/project/router.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project_api/api/user/router.go" beforeDir="false" afterPath="$PROJECT_DIR$/project_api/api/user/router.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project_api/api/user/rpc.go" beforeDir="false" afterPath="$PROJECT_DIR$/project_api/api/rpc/user_rpc.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project_api/api/project/rpc.go" beforeDir="false" afterPath="$PROJECT_DIR$/project_api/api/project/rpc.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/project_api/api/user/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/project_api/api/user/user.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project_api/pkg/model/user/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/project_api/pkg/model/user/user.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project_grpc/project/project_service.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/project_grpc/project/project_service.pb.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project_grpc/project/project_service_grpc.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/project_grpc/project/project_service_grpc.pb.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project_api/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/project_api/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project_api/pkg/model/pro/pro.go" beforeDir="false" afterPath="$PROJECT_DIR$/project_api/pkg/model/pro/pro.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project_common/encrypts/encrypts.go" beforeDir="false" afterPath="$PROJECT_DIR$/project_common/encrypts/encrypts.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project_common/jwts/jwts.go" beforeDir="false" afterPath="$PROJECT_DIR$/project_common/jwts/jwts.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project_common/tms/tms.go" beforeDir="false" afterPath="$PROJECT_DIR$/project_common/tms/tms.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/project_grpc/user/login/login_service.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/project_grpc/user/login/login_service.pb.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/project_grpc/user/login/login_service_grpc.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/project_grpc/user/login/login_service_grpc.pb.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project_project/api/proto/project_service.proto" beforeDir="false" afterPath="$PROJECT_DIR$/project_project/api/proto/project_service.proto" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project_project/internal/dao/menu.go" beforeDir="false" afterPath="$PROJECT_DIR$/project_project/internal/dao/menu.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project_project/internal/data/menu/menu.go" beforeDir="false" afterPath="$PROJECT_DIR$/project_project/internal/data/menu/menu.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project_project/internal/data/pro/pro.go" beforeDir="false" afterPath="$PROJECT_DIR$/project_project/internal/data/pro/pro.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project_project/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/project_project/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project_project/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/project_project/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project_project/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/project_project/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project_project/internal/dao/project.go" beforeDir="false" afterPath="$PROJECT_DIR$/project_project/internal/dao/project.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project_project/internal/dao/project_template.go" beforeDir="false" afterPath="$PROJECT_DIR$/project_project/internal/dao/project_template.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project_project/internal/dao/task_stages_template.go" beforeDir="false" afterPath="$PROJECT_DIR$/project_project/internal/dao/task_stages_template.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project_project/internal/data/pro/pro.go" beforeDir="false" afterPath="$PROJECT_DIR$/project_project/internal/data/pro.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project_project/internal/data/task/task.go" beforeDir="false" afterPath="$PROJECT_DIR$/project_project/internal/data/task.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project_project/internal/interceptor/cache.go" beforeDir="false" afterPath="$PROJECT_DIR$/project_project/internal/interceptor/cache.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project_project/internal/repo/project.go" beforeDir="false" afterPath="$PROJECT_DIR$/project_project/internal/repo/project.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project_project/internal/repo/task.go" beforeDir="false" afterPath="$PROJECT_DIR$/project_project/internal/repo/task.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/project_project/pkg/model/biz.go" beforeDir="false" afterPath="$PROJECT_DIR$/project_project/pkg/model/biz.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project_project/pkg/model/code.go" beforeDir="false" afterPath="$PROJECT_DIR$/project_project/pkg/model/code.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project_project/pkg/service/project_service_v1/project_collect.go" beforeDir="false" afterPath="$PROJECT_DIR$/project_project/pkg/service/project_service_v1/project_collect.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/project_project/pkg/service/project_service_v1/project_service.go" beforeDir="false" afterPath="$PROJECT_DIR$/project_project/pkg/service/project_service_v1/project_service.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/project_project/router/router.go" beforeDir="false" afterPath="$PROJECT_DIR$/project_project/router/router.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/project_user/api/proto/login_service.proto" beforeDir="false" afterPath="$PROJECT_DIR$/project_user/api/proto/login_service.proto" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project_user/internal/data/organization/organization.go" beforeDir="false" afterPath="$PROJECT_DIR$/project_user/internal/data/organization/organization.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project_user/pkg/model/redis_key.go" beforeDir="false" afterPath="$PROJECT_DIR$/project_user/pkg/model/redis_key.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project_user/internal/dao/member.go" beforeDir="false" afterPath="$PROJECT_DIR$/project_user/internal/dao/member.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project_user/internal/interceptor/cache.go" beforeDir="false" afterPath="$PROJECT_DIR$/project_user/internal/interceptor/cache.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project_user/internal/repo/member.go" beforeDir="false" afterPath="$PROJECT_DIR$/project_user/internal/repo/member.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/project_user/pkg/service/login_service_v1/login_service.go" beforeDir="false" afterPath="$PROJECT_DIR$/project_user/pkg/service/login_service_v1/login_service.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project_user/router/router.go" beforeDir="false" afterPath="$PROJECT_DIR$/project_user/router/router.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,6 +89,9 @@
   <component name="KubernetesApiProvider">{
   &quot;isMigrated&quot;: true
 }</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 4
 }</component>
@@ -76,50 +100,59 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultGoTemplateProperty": "Go File",
-    "Go 构建.go build go_project/ms_project/project_api.executor": "Run",
-    "Go 构建.go build go_project/ms_project/project_project.executor": "Debug",
-    "Go 构建.go build go_project/ms_project/project_user.executor": "Run",
-    "Go 构建.go build main.go (1).executor": "Debug",
-    "Go 构建.go build main.go (2).executor": "Run",
-    "Go 构建.go build main.go.executor": "Debug",
-    "Go 测试.go test go_project/ms_project/project_common/code_gen.executor": "Run",
-    "Go 测试.go_project/ms_project/project_common/code_gen 中的 TestGenStruct.executor": "Run",
-    "Go 测试.go_project/ms_project/project_common/encrypts 中的 TestEncrypt.executor": "Run",
-    "Go 测试.go_project/ms_project/project_common/jwts 中的 TestParseToken.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.go.formatter.settings.were.checked": "true",
-    "RunOnceActivity.go.migrated.go.modules.settings": "true",
-    "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
-    "git-widget-placeholder": "main",
-    "go.import.settings.migrated": "true",
-    "go.sdk.automatically.set": "true",
-    "last_opened_file_path": "D:/go_project/ms_project/project_project/internal",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultGoTemplateProperty&quot;: &quot;Go File&quot;,
+    &quot;Go 构建.go build go_project/ms_project/project_api.executor&quot;: &quot;Run&quot;,
+    &quot;Go 构建.go build go_project/ms_project/project_project.executor&quot;: &quot;Run&quot;,
+    &quot;Go 构建.go build go_project/ms_project/project_user.executor&quot;: &quot;Run&quot;,
+    &quot;Go 构建.go build main.go (1).executor&quot;: &quot;Run&quot;,
+    &quot;Go 构建.go build main.go (2).executor&quot;: &quot;Run&quot;,
+    &quot;Go 构建.go build main.go.executor&quot;: &quot;Run&quot;,
+    &quot;Go 测试.go test go_project/ms_project/project_common/code_gen.executor&quot;: &quot;Run&quot;,
+    &quot;Go 测试.go test project_project.executor&quot;: &quot;Run&quot;,
+    &quot;Go 测试.go_project/ms_project/project_common/code_gen 中的 TestGenStruct.executor&quot;: &quot;Run&quot;,
+    &quot;Go 测试.go_project/ms_project/project_common/encrypts 中的 TestEncrypt.executor&quot;: &quot;Run&quot;,
+    &quot;Go 测试.go_project/ms_project/project_common/jwts 中的 TestParseToken.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.modules.go.list.on.any.changes.was.set&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
+    &quot;go.sdk.automatically.set&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/go_project/ms_project/project_project/api/proto&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\go_project\ms_project\project_project\api\proto" />
       <recent name="D:\go_project\ms_project\project_project\internal" />
       <recent name="D:\go_project\ms_project\project_api\api\project" />
       <recent name="D:\go_project\ms_project\project_project" />
       <recent name="D:\go_project\ms_project\project_grpc\user_login" />
-      <recent name="D:\go_project\ms_project\project_api\api\user" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\go_project\ms_project\project_grpc\project" />
+      <recent name="D:\go_project\ms_project\project_grpc\task" />
       <recent name="D:\go_project\ms_project\project_grpc\user\login" />
+      <recent name="D:\go_project\ms_project\project_project\internal\data" />
+      <recent name="D:\go_project\ms_project\project_grpc\project" />
       <recent name="D:\go_project\ms_project\project_api\api\rpc" />
-      <recent name="D:\go_project\ms_project\project_api\api\user\user_grpc" />
-      <recent name="D:\go_project\ms_project\project_user\pkg\service\login_service_v1" />
     </key>
   </component>
-  <component name="RunManager" selected="Go 构建.go build main.go">
+  <component name="RunManager" selected="Go 构建.go build go_project/ms_project/project_api">
+    <configuration name="go build go_project/ms_project/project_api" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="ms_project" />
+      <working_directory value="$PROJECT_DIR$/project_api" />
+      <kind value="PACKAGE" />
+      <package value="go_project/ms_project/project_api" />
+      <directory value="$PROJECT_DIR$" />
+      <method v="2" />
+    </configuration>
     <configuration name="go build go_project/ms_project/project_project" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="ms_project" />
       <working_directory value="$PROJECT_DIR$/project_project" />
@@ -152,21 +185,13 @@
       <filePath value="$PROJECT_DIR$/project_project/main.go" />
       <method v="2" />
     </configuration>
-    <configuration name="go build main.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
-      <module name="ms_project" />
-      <working_directory value="$PROJECT_DIR$/project_user" />
-      <kind value="FILE" />
-      <directory value="$PROJECT_DIR$" />
-      <filePath value="$PROJECT_DIR$/project_user/main.go" />
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Go 构建.go build go_project/ms_project/project_project" />
-        <item itemvalue="Go 构建.go build main.go (1)" />
-        <item itemvalue="Go 构建.go build main.go" />
+        <item itemvalue="Go 构建.go build go_project/ms_project/project_api" />
         <item itemvalue="Go 构建.go build main.go (2)" />
         <item itemvalue="Go 构建.go build go_project/ms_project/project_user" />
+        <item itemvalue="Go 构建.go build go_project/ms_project/project_project" />
+        <item itemvalue="Go 构建.go build main.go (1)" />
       </list>
     </recent_temporary>
   </component>

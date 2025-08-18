@@ -5,10 +5,12 @@ import (
 	"go_project/ms_project/project_common/discovery"
 	"go_project/ms_project/project_common/logs"
 	"go_project/ms_project/project_grpc/project"
+	"go_project/ms_project/project_grpc/task"
 	"go_project/ms_project/project_project/config"
 	"go_project/ms_project/project_project/internal/interceptor"
 	"go_project/ms_project/project_project/internal/rpc"
 	"go_project/ms_project/project_project/pkg/service/project_service_v1"
+	task_service_v1 "go_project/ms_project/project_project/pkg/service/task_service.v1"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/resolver"
 	"log"
@@ -53,6 +55,7 @@ func RegisterGrpc() *grpc.Server {
 		Addr: config.C.GC.Addr,
 		RegisterFunc: func(g *grpc.Server) {
 			project.RegisterProjectServiceServer(g, project_service_v1.New())
+			task.RegisterTaskServiceServer(g, task_service_v1.New())
 		},
 	}
 	s := grpc.NewServer(interceptor.New().Cache())

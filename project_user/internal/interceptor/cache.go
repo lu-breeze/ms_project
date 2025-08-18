@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"go.uber.org/zap"
 	"go_project/ms_project/project_common/encrypts"
-	"go_project/ms_project/project_grpc/user/login"
 	"go_project/ms_project/project_user/internal/dao"
 	"go_project/ms_project/project_user/internal/repo"
 	"google.golang.org/grpc"
@@ -19,8 +18,8 @@ type CacheInterceptor struct {
 
 func New() *CacheInterceptor {
 	cacheMap := make(map[string]any)
-	cacheMap["/login.LoginService/MyOrgList"] = &login.OrgListResponse{}
-	cacheMap["/login.LoginService/FindMemInfoById"] = &login.MemberMessage{}
+	//cacheMap["/login.LoginService/MyOrgList"] = &login.OrgListResponse{}
+	//cacheMap["/login.LoginService/FindMemInfoById"] = &login.MemberMessage{}
 	return &CacheInterceptor{
 		cache:    dao.Rc,
 		cacheMap: cacheMap,
