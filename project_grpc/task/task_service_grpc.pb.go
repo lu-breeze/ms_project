@@ -30,6 +30,7 @@ type TaskServiceClient interface {
 	SaveTaskWorkTime(ctx context.Context, in *TaskReqMessage, opts ...grpc.CallOption) (*SaveTaskWorkTimeResponse, error)
 	SaveTaskFile(ctx context.Context, in *TaskFileReqMessage, opts ...grpc.CallOption) (*TaskFileResponse, error)
 	TaskSources(ctx context.Context, in *TaskReqMessage, opts ...grpc.CallOption) (*TaskSourceResponse, error)
+	CreateComment(ctx context.Context, in *TaskReqMessage, opts ...grpc.CallOption) (*CreateCommentResponse, error)
 }
 
 type taskServiceClient struct {
@@ -157,6 +158,15 @@ func (c *taskServiceClient) TaskSources(ctx context.Context, in *TaskReqMessage,
 	return out, nil
 }
 
+func (c *taskServiceClient) CreateComment(ctx context.Context, in *TaskReqMessage, opts ...grpc.CallOption) (*CreateCommentResponse, error) {
+	out := new(CreateCommentResponse)
+	err := c.cc.Invoke(ctx, "/task.service.v1.TaskService/CreateComment", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // TaskServiceServer is the server API for TaskService service.
 // All implementations must embed UnimplementedTaskServiceServer
 // for forward compatibility
@@ -174,6 +184,7 @@ type TaskServiceServer interface {
 	SaveTaskWorkTime(context.Context, *TaskReqMessage) (*SaveTaskWorkTimeResponse, error)
 	SaveTaskFile(context.Context, *TaskFileReqMessage) (*TaskFileResponse, error)
 	TaskSources(context.Context, *TaskReqMessage) (*TaskSourceResponse, error)
+	CreateComment(context.Context, *TaskReqMessage) (*CreateCommentResponse, error)
 	mustEmbedUnimplementedTaskServiceServer()
 }
 
@@ -219,6 +230,9 @@ func (*UnimplementedTaskServiceServer) SaveTaskFile(context.Context, *TaskFileRe
 }
 func (*UnimplementedTaskServiceServer) TaskSources(context.Context, *TaskReqMessage) (*TaskSourceResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method TaskSources not implemented")
+}
+func (*UnimplementedTaskServiceServer) CreateComment(context.Context, *TaskReqMessage) (*CreateCommentResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateComment not implemented")
 }
 func (*UnimplementedTaskServiceServer) mustEmbedUnimplementedTaskServiceServer() {}
 
@@ -460,6 +474,24 @@ func _TaskService_TaskSources_Handler(srv interface{}, ctx context.Context, dec 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TaskService_CreateComment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(TaskReqMessage)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TaskServiceServer).CreateComment(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/task.service.v1.TaskService/CreateComment",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TaskServiceServer).CreateComment(ctx, req.(*TaskReqMessage))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _TaskService_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "task.service.v1.TaskService",
 	HandlerType: (*TaskServiceServer)(nil),
@@ -515,6 +547,10 @@ var _TaskService_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "TaskSources",
 			Handler:    _TaskService_TaskSources_Handler,
+		},
+		{
+			MethodName: "CreateComment",
+			Handler:    _TaskService_CreateComment_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

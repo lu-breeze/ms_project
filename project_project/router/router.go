@@ -4,11 +4,15 @@ import (
 	"github.com/gin-gonic/gin"
 	"go_project/ms_project/project_common/discovery"
 	"go_project/ms_project/project_common/logs"
+	"go_project/ms_project/project_grpc/account"
+	"go_project/ms_project/project_grpc/department"
 	"go_project/ms_project/project_grpc/project"
 	"go_project/ms_project/project_grpc/task"
 	"go_project/ms_project/project_project/config"
 	"go_project/ms_project/project_project/internal/interceptor"
 	"go_project/ms_project/project_project/internal/rpc"
+	account_service_v1 "go_project/ms_project/project_project/pkg/service/account_service.v1"
+	department_service_v1 "go_project/ms_project/project_project/pkg/service/department_service.v1"
 	"go_project/ms_project/project_project/pkg/service/project_service_v1"
 	task_service_v1 "go_project/ms_project/project_project/pkg/service/task_service.v1"
 	"google.golang.org/grpc"
@@ -56,6 +60,8 @@ func RegisterGrpc() *grpc.Server {
 		RegisterFunc: func(g *grpc.Server) {
 			project.RegisterProjectServiceServer(g, project_service_v1.New())
 			task.RegisterTaskServiceServer(g, task_service_v1.New())
+			account.RegisterAccountServiceServer(g, account_service_v1.New())
+			department.RegisterDepartmentServiceServer(g, department_service_v1.New())
 		},
 	}
 	s := grpc.NewServer(interceptor.New().Cache())

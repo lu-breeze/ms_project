@@ -13,6 +13,9 @@ func FormatYMD(t time.Time) string {
 	return t.In(loc).Format("2006-01-02")
 }
 func FormatByMill(t int64) string {
+	return time.UnixMilli(t).Format("2006-01-02 15:04:05")
+}
+func FormatByMillConvert(t int64) string {
 	t = t - 8*3600*1000 // UTO减去8小时的毫秒数，转换为北京时间
 	return time.UnixMilli(t).Format("2006-01-02 15:04:05")
 }

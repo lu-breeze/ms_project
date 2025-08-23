@@ -13,6 +13,7 @@ import (
 	"go_project/ms_project/project_project/internal/data"
 	"go_project/ms_project/project_project/internal/database"
 	"go_project/ms_project/project_project/internal/database/tran"
+	"go_project/ms_project/project_project/internal/domain"
 	"go_project/ms_project/project_project/internal/repo"
 	"go_project/ms_project/project_project/internal/rpc"
 	"go_project/ms_project/project_project/pkg/model"
@@ -32,6 +33,7 @@ type TaskService struct {
 	taskWorkTimeRepo       repo.TaskWorkTimeRepo
 	fileRepo               repo.FileRepo
 	sourceLinkRepo         repo.SourceLinkRepo
+	userRpcDomain          *domain.UserRpcDomain
 }
 
 func New() *TaskService {
@@ -47,6 +49,7 @@ func New() *TaskService {
 		taskWorkTimeRepo:       dao.NewTaskWorkTimeDao(),
 		fileRepo:               dao.NewFileDao(),
 		sourceLinkRepo:         dao.NewSourceLinkDao(),
+		userRpcDomain:          domain.NewUserRpcDomain(),
 	}
 }
 
@@ -639,10 +642,14 @@ func (t *TaskService) TaskWorkTimeList(ctx context.Context, msg *task.TaskReqMes
 	for _, v := range list {
 		mIdList = append(mIdList, v.MemberCode)
 	}
-	messageList, err := rpc.LoginServiceClient.FindMemInfoByIds(c, &login.UserMessage{MIds: mIdList})
-	mMap := make(map[int64]*login.MemberMessage)
-	for _, v := range messageList.List {
-		mMap[v.Id] = v
+	//messageList, err := rpc.LoginServiceClient.FindMemInfoByIds(c, &login.UserMessage{MIds: mIdList})
+	//mMap := make(map[int64]*login.MemberMessage)
+	//for _, v := range messageList.List {
+	//	mMap[v.Id] = v
+	//}
+	_, mMap, err := t.userRpcDomain.MemberList(mIdList)
+	if err != nil {
+		return nil, err
 	}
 	for _, v := range list {
 		display := v.ToDisplay()
@@ -720,4 +727,61 @@ func (t *TaskService) SaveTaskFile(ctx context.Context, msg *task.TaskFileReqMes
 		return nil, errs.GrpcError(model.DBError)
 	}
 	return &task.TaskFileResponse{}, nil
+}
+
+func (t *TaskService) TaskSources(ctx context.Context, msg *task.TaskReqMessage) (*task.TaskSourceResponse, error) {
+	taskCode := encrypts.DecryptNoErr(msg.TaskCode)
+	sourceLinks, err := t.sourceLinkRepo.FindByTaskCode(context.Background(), taskCode)
+	if err != nil {
+		zap.L().Error("project task SaveTaskFile sourceLinkRepo.FindByTaskCode error", zap.Error(err))
+		return nil, errs.GrpcError(model.DBError)
+	}
+	if len(sourceLinks) == 0 {
+		return &task.TaskSourceResponse{}, nil
+	}
+	var fIdList []int64
+	for _, v := range sourceLinks {
+		fIdList = append(fIdList, v.SourceCode)
+	}
+	files, err := t.fileRepo.FindByIds(context.Background(), fIdList)
+	if err != nil {
+		zap.L().Error("project task SaveTaskFile fileRepo.FindByIds error", zap.Error(err))
+		return nil, errs.GrpcError(model.DBError)
+	}
+	fMap := make(map[int64]*data.File)
+	for _, v := range files {
+		fMap[v.Id] = v
+	}
+	var list []*data.SourceLinkDisplay
+	for _, v := range sourceLinks {
+		list = append(list, v.ToDisplay(fMap[v.SourceCode]))
+	}
+	var slMsg []*task.TaskSourceMessage
+	copier.Copy(&slMsg, list)
+	return &task.TaskSourceResponse{List: slMsg}, nil
+}
+
+func (t *TaskService) CreateComment(ctx context.Context, msg *task.TaskReqMessage) (*task.CreateCommentResponse, error) {
+	taskCode := encrypts.DecryptNoErr(msg.TaskCode)
+	taskById, err := t.taskRepo.FindTaskById(context.Background(), taskCode)
+	if err != nil {
+		zap.L().Error("project task CreateComment fileRepo.FindTaskById error", zap.Error(err))
+		return nil, errs.GrpcError(model.DBError)
+	}
+	pl := &data.ProjectLog{
+		MemberCode:   msg.MemberId,
+		Content:      msg.CommentContent,
+		Remark:       msg.CommentContent,
+		Type:         "createComment",
+		CreateTime:   time.Now().UnixMilli(),
+		SourceCode:   taskCode,
+		ActionType:   "task",
+		ToMemberCode: 0,
+		IsComment:    model.Comment,
+		ProjectCode:  taskById.ProjectCode,
+		Icon:         "plus",
+		IsRobot:      0,
+	}
+	t.projectLogRepo.SaveProjectLog(pl)
+	return &task.CreateCommentResponse{}, nil
 }

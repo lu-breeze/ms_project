@@ -36,7 +36,7 @@ func (t *TaskWorkTime) ToDisplay() *TaskWorkTimeDisplay {
 	copier.Copy(td, t)
 	td.MemberCode = encrypts.EncryptNoErr(t.MemberCode)
 	td.TaskCode = encrypts.EncryptNoErr(t.TaskCode)
-	td.CreateTime = tms.FormatByMill(t.CreateTime)
-	td.BeginTime = tms.FormatByMill(t.BeginTime)
+	td.CreateTime = tms.FormatByMillConvert(t.CreateTime)
+	td.BeginTime = tms.FormatByMillConvert(t.BeginTime)
 	return td
 }

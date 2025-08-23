@@ -21,6 +21,9 @@ message TaskReqMessage{
   string content = 16;
   int32 num = 17;
   int64 beginTime = 18;
+  string commentContent = 19;
+  repeated string Mentions = 20;
+
 }
 
 message TaskStagesMessage{
@@ -283,6 +286,9 @@ message TaskSourceResponse{
   repeated TaskSourceMessage list = 1;
 }
 
+message CreateCommentResponse{
+}
+
 service TaskService {
   rpc TaskStages(TaskReqMessage) returns (TaskStagesResponse){}
   rpc MemberProjectList(TaskReqMessage) returns (MemberProjectResponse){}
@@ -297,4 +303,5 @@ service TaskService {
   rpc SaveTaskWorkTime(TaskReqMessage) returns(SaveTaskWorkTimeResponse){}
   rpc SaveTaskFile(TaskFileReqMessage) returns(TaskFileResponse){}
   rpc TaskSources(TaskReqMessage) returns(TaskSourceResponse){}
+  rpc CreateComment(TaskReqMessage) returns(CreateCommentResponse){}
 }
