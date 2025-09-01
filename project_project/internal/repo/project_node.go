@@ -5,6 +5,6 @@ import (
 	"go_project/ms_project/project_project/internal/data"
 )
 
-type MenuRepo interface {
-	FindMenus(ctx context.Context) ([]*data.ProjectMenu, error)
+type ProjectNodeRepo interface {
+	FindAll(ctx context.Context) ([]*data.ProjectNode, error)
 }

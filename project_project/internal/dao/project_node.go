@@ -6,18 +6,18 @@ import (
 	"go_project/ms_project/project_project/internal/database/gorms"
 )
 
-type MenuDao struct {
+type ProjectNodeDao struct {
 	conn *gorms.GormConn
 }
 
-func (m MenuDao) FindMenus(ctx context.Context) (pms []*data.ProjectMenu, err error) {
+func (m *ProjectNodeDao) FindAll(ctx context.Context) (pms []*data.ProjectNode, err error) {
 	session := m.conn.Session(ctx)
-	err = session.Order("pid,sort asc,id asc").Find(&pms).Error
+	err = session.Model(&data.ProjectNode{}).Find(&pms).Error
 	return
 }
 
-func NewMenuDao() *MenuDao {
-	return &MenuDao{
+func NewProjectNodeDao() *ProjectNodeDao {
+	return &ProjectNodeDao{
 		conn: gorms.New(),
 	}
 }

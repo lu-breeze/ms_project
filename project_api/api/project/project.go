@@ -5,7 +5,6 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/copier"
 	"go_project/ms_project/project_api/pkg/model"
-	"go_project/ms_project/project_api/pkg/model/menu"
 	"go_project/ms_project/project_api/pkg/model/pro"
 	common "go_project/ms_project/project_common"
 	"go_project/ms_project/project_common/errs"
@@ -29,7 +28,7 @@ func (p *HandlerProject) Index(c *gin.Context) {
 		c.JSON(http.StatusOK, result.Fail(code, msg))
 	}
 	menus := indexResponse.Menus
-	var ms []*menu.Menu
+	var ms []*model.Menu
 	copier.Copy(&ms, menus)
 	c.JSON(http.StatusOK, result.Success(ms))
 }
@@ -247,6 +246,22 @@ func (p *HandlerProject) getLogBySelfProject(c *gin.Context) {
 		list = []*model.ProjectLog{}
 	}
 	c.JSON(http.StatusOK, result.Success(list))
+}
+
+func (p *HandlerProject) nodeList(c *gin.Context) {
+	result := &common.Result{}
+	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+	defer cancel()
+	response, err := ProjectServiceClient.NodeList(ctx, &project.ProjectRpcMessage{})
+	if err != nil {
+		code, msg := errs.ParseGrpcError(err)
+		c.JSON(http.StatusOK, result.Fail(code, msg))
+	}
+	var list []*model.ProjectNodeTree
+	copier.Copy(&list, response.Nodes)
+	c.JSON(http.StatusOK, result.Success(gin.H{
+		"nodes": list,
+	}))
 }
 
 func New() *HandlerProject {

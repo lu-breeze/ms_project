@@ -2,8 +2,10 @@ package dao
 
 import (
 	"context"
+	"errors"
 	"go_project/ms_project/project_project/internal/data"
 	"go_project/ms_project/project_project/internal/database/gorms"
+	"gorm.io/gorm"
 )
 
 type DepartmentDao struct {
@@ -11,25 +13,35 @@ type DepartmentDao struct {
 }
 
 func (d *DepartmentDao) FindDepartment(ctx context.Context, organizationCode int64, parentDepartmentCode int64, name string) (*data.Department, error) {
-	//TODO implement me
-	panic("implement me")
+	session := d.conn.Session(ctx)
+	session = session.Model(&data.Department{}).Where("organization_code=? AND name=?", organizationCode, name)
+	if parentDepartmentCode > 0 {
+		session = session.Where("pcode=?", parentDepartmentCode)
+	}
+	var dp *data.Department
+	err := session.Limit(1).Take(&dp).Error
+	//若果是没有查到数据，dp会是默认值
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		return nil, nil
+	}
+	return dp, err
 }
 
 func (d *DepartmentDao) Save(dpm *data.Department) error {
-	//TODO implement me
-	panic("implement me")
+	err := d.conn.Session(context.Background()).Save(&dpm).Error
+	return err
 }
 
 func (d *DepartmentDao) ListDepartment(organizationCode int64, parentDepartmentCode int64, page int64, size int64) (list []*data.Department, total int64, err error) {
 	session := d.conn.Session(context.Background())
-	query := session.Model(&data.Department{})
-	query = query.Where("organization_code=?", organizationCode)
+	session = session.Model(&data.Department{})
+	session = session.Where("organization_code=?", organizationCode)
 	if parentDepartmentCode > 0 {
-		query = query.Where("pcode=?", parentDepartmentCode)
+		session = session.Where("pcode=?", parentDepartmentCode)
 	}
-	err = query.Count(&total).Error
+	err = session.Count(&total).Error
 
-	err = query.Limit(int(size)).Offset(int((page - 1) * size)).Find(&list).Error
+	err = session.Limit(int(size)).Offset(int((page - 1) * size)).Find(&list).Error
 	return
 }
 

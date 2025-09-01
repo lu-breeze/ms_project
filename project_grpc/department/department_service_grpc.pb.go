@@ -18,6 +18,7 @@ const _ = grpc.SupportPackageIsVersion6
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type DepartmentServiceClient interface {
 	Save(ctx context.Context, in *DepartmentReqMessage, opts ...grpc.CallOption) (*DepartmentMessage, error)
+	Read(ctx context.Context, in *DepartmentReqMessage, opts ...grpc.CallOption) (*DepartmentMessage, error)
 	List(ctx context.Context, in *DepartmentReqMessage, opts ...grpc.CallOption) (*ListDepartmentMessage, error)
 }
 
@@ -38,6 +39,15 @@ func (c *departmentServiceClient) Save(ctx context.Context, in *DepartmentReqMes
 	return out, nil
 }
 
+func (c *departmentServiceClient) Read(ctx context.Context, in *DepartmentReqMessage, opts ...grpc.CallOption) (*DepartmentMessage, error) {
+	out := new(DepartmentMessage)
+	err := c.cc.Invoke(ctx, "/department.service.v1.DepartmentService/Read", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *departmentServiceClient) List(ctx context.Context, in *DepartmentReqMessage, opts ...grpc.CallOption) (*ListDepartmentMessage, error) {
 	out := new(ListDepartmentMessage)
 	err := c.cc.Invoke(ctx, "/department.service.v1.DepartmentService/List", in, out, opts...)
@@ -52,6 +62,7 @@ func (c *departmentServiceClient) List(ctx context.Context, in *DepartmentReqMes
 // for forward compatibility
 type DepartmentServiceServer interface {
 	Save(context.Context, *DepartmentReqMessage) (*DepartmentMessage, error)
+	Read(context.Context, *DepartmentReqMessage) (*DepartmentMessage, error)
 	List(context.Context, *DepartmentReqMessage) (*ListDepartmentMessage, error)
 	mustEmbedUnimplementedDepartmentServiceServer()
 }
@@ -62,6 +73,9 @@ type UnimplementedDepartmentServiceServer struct {
 
 func (*UnimplementedDepartmentServiceServer) Save(context.Context, *DepartmentReqMessage) (*DepartmentMessage, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Save not implemented")
+}
+func (*UnimplementedDepartmentServiceServer) Read(context.Context, *DepartmentReqMessage) (*DepartmentMessage, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Read not implemented")
 }
 func (*UnimplementedDepartmentServiceServer) List(context.Context, *DepartmentReqMessage) (*ListDepartmentMessage, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method List not implemented")
@@ -86,6 +100,24 @@ func _DepartmentService_Save_Handler(srv interface{}, ctx context.Context, dec f
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(DepartmentServiceServer).Save(ctx, req.(*DepartmentReqMessage))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DepartmentService_Read_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DepartmentReqMessage)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DepartmentServiceServer).Read(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/department.service.v1.DepartmentService/Read",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DepartmentServiceServer).Read(ctx, req.(*DepartmentReqMessage))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -115,6 +147,10 @@ var _DepartmentService_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Save",
 			Handler:    _DepartmentService_Save_Handler,
+		},
+		{
+			MethodName: "Read",
+			Handler:    _DepartmentService_Read_Handler,
 		},
 		{
 			MethodName: "List",

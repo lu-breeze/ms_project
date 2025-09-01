@@ -23,6 +23,7 @@ func (*Department) TableName() string {
 
 type DepartmentDisplay struct {
 	Id               int64
+	Code             string
 	OrganizationCode string
 	Name             string
 	Sort             int
@@ -35,6 +36,7 @@ type DepartmentDisplay struct {
 func (d *Department) ToDisplay() *DepartmentDisplay {
 	dp := &DepartmentDisplay{}
 	copier.Copy(dp, d)
+	dp.Code = encrypts.EncryptNoErr(d.Id)
 	dp.CreateTime = tms.FormatByMill(d.CreateTime)
 	dp.OrganizationCode = encrypts.EncryptNoErr(d.OrganizationCode)
 	if d.Pcode > 0 {

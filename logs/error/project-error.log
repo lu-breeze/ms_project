@@ -759,3 +759,15 @@
 {"level":"ERROR","time":"2025-08-22T17:05:53.458+0800","caller":"discovery/discovery.go:117","msg":"register failed","error":"context deadline exceeded"}
 {"level":"ERROR","time":"2025-08-22T17:11:55.076+0800","caller":"discovery/discovery.go:117","msg":"register failed","error":"context deadline exceeded"}
 {"level":"ERROR","time":"2025-08-22T17:11:55.076+0800","caller":"discovery/resolver.go:101","msg":"sync failed","error":"context deadline exceeded"}
+{"level":"ERROR","time":"2025-09-01T10:21:40.344+0800","caller":"login_service_v1/login_service.go:218","msg":"TokenVerify解析token失败","error":"Token is expired"}
+{"level":"ERROR","time":"2025-09-01T10:21:40.344+0800","caller":"login_service_v1/login_service.go:218","msg":"TokenVerify解析token失败","error":"Token is expired"}
+{"level":"ERROR","time":"2025-09-01T10:21:40.344+0800","caller":"login_service_v1/login_service.go:218","msg":"TokenVerify解析token失败","error":"Token is expired"}
+{"level":"ERROR","time":"2025-09-01T10:21:40.344+0800","caller":"login_service_v1/login_service.go:218","msg":"TokenVerify解析token失败","error":"Token is expired"}
+{"level":"ERROR","time":"2025-09-01T10:21:51.107+0800","caller":"login_service_v1/login_service.go:218","msg":"TokenVerify解析token失败","error":"Token is expired"}
+{"level":"ERROR","time":"2025-09-01T10:21:51.107+0800","caller":"login_service_v1/login_service.go:218","msg":"TokenVerify解析token失败","error":"Token is expired"}
+{"level":"ERROR","time":"2025-09-01T10:21:51.107+0800","caller":"login_service_v1/login_service.go:218","msg":"TokenVerify解析token失败","error":"Token is expired"}
+{"level":"ERROR","time":"2025-09-01T10:21:51.107+0800","caller":"login_service_v1/login_service.go:218","msg":"TokenVerify解析token失败","error":"Token is expired"}
+{"level":"ERROR","time":"2025-09-01T10:21:53.984+0800","caller":"login_service_v1/login_service.go:218","msg":"TokenVerify解析token失败","error":"Token is expired"}
+{"level":"ERROR","time":"2025-09-01T10:21:53.984+0800","caller":"login_service_v1/login_service.go:218","msg":"TokenVerify解析token失败","error":"Token is expired"}
+{"level":"ERROR","time":"2025-09-01T10:21:53.985+0800","caller":"login_service_v1/login_service.go:218","msg":"TokenVerify解析token失败","error":"Token is expired"}
+{"level":"ERROR","time":"2025-09-01T10:21:53.985+0800","caller":"login_service_v1/login_service.go:218","msg":"TokenVerify解析token失败","error":"Token is expired"}

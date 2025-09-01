@@ -5,7 +5,9 @@ import (
 	"go_project/ms_project/project_common/discovery"
 	"go_project/ms_project/project_common/logs"
 	"go_project/ms_project/project_grpc/account"
+	"go_project/ms_project/project_grpc/auth"
 	"go_project/ms_project/project_grpc/department"
+	"go_project/ms_project/project_grpc/menu"
 	"go_project/ms_project/project_grpc/project"
 	"go_project/ms_project/project_grpc/task"
 	"google.golang.org/grpc"
@@ -18,6 +20,8 @@ var ProjectServiceClient project.ProjectServiceClient
 var TaskServiceClient task.TaskServiceClient
 var AccountServiceClient account.AccountServiceClient
 var DepartmentServiceClient department.DepartmentServiceClient
+var AuthServiceClient auth.AuthServiceClient
+var MenuServiceClient menu.MenuServiceClient
 
 func InitRpcProjectClient() {
 	etcdRegister := discovery.NewResolver(config.C.EtcdConfig.Addrs, logs.LG)
@@ -31,4 +35,6 @@ func InitRpcProjectClient() {
 	TaskServiceClient = task.NewTaskServiceClient(conn)
 	AccountServiceClient = account.NewAccountServiceClient(conn)
 	DepartmentServiceClient = department.NewDepartmentServiceClient(conn)
+	AuthServiceClient = auth.NewAuthServiceClient(conn)
+	MenuServiceClient = menu.NewMenuServiceClient(conn)
 }
