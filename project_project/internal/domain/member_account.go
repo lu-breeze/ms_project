@@ -59,6 +59,16 @@ func (d *AccountDomain) AccountList(organizationCode string, memberId int64,
 	return dList, total, nil
 }
 
+func (d *AccountDomain) FindAccount(memId int64) (*data.MemberAccount, *errs.BError) {
+	c, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+	defer cancel()
+	memberAccount, err := d.accountRepo.FindByMemberId(c, memId)
+	if err != nil {
+		return nil, model.DBError
+	}
+	return memberAccount, nil
+}
+
 func NewAccountDomain() *AccountDomain {
 	return &AccountDomain{
 		accountRepo:      dao.NewMemberAccountDao(),

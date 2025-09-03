@@ -144,6 +144,7 @@ func (ls *LoginService) Register(ctx context.Context, msg *login.RegisterMessage
 		}
 		return nil
 	})
+	//TODO 生成一个账户，账户的授权角色是默认
 	return &login.RegisterResponse{}, err
 }
 

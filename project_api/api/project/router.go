@@ -22,6 +22,8 @@ func (*RouterProject) Route(r *gin.Engine) {
 	h := New()
 	group := r.Group("/project")
 	group.Use(midd.ToKenVerify())
+	group.Use(Auth())
+	group.Use(ProjectAuth())
 	group.POST("/index", h.Index)
 	group.POST("/project/selfList", h.myProjectList)
 	group.POST("/project", h.myProjectList)

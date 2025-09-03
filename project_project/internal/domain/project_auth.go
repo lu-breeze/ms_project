@@ -8,6 +8,7 @@ import (
 	"go_project/ms_project/project_project/internal/data"
 	"go_project/ms_project/project_project/internal/repo"
 	"go_project/ms_project/project_project/pkg/model"
+	"strconv"
 	"time"
 )
 
@@ -16,6 +17,7 @@ type ProjectAuthDomain struct {
 	UserRpcDomain         *UserRpcDomain
 	projectNodeDomain     *ProjectNodeDomain
 	ProjectAuthNodeDomain *ProjectAuthNodeDomain
+	accountDomain         *AccountDomain
 }
 
 func (d *ProjectAuthDomain) AuthList(orgCode int64) ([]*data.ProjectAuthDisplay, *errs.BError) {
@@ -63,6 +65,23 @@ func (d *ProjectAuthDomain) AllNodeAndAuth(authId int64) ([]*data.ProjectNodeAut
 	return list, checkedList, nil
 }
 
+func (d *ProjectAuthDomain) AuthNodes(memberId int64) ([]string, *errs.BError) {
+	account, err := d.accountDomain.FindAccount(memberId)
+	if err != nil {
+		return nil, err
+	}
+	if account == nil {
+		return nil, model.ParamsError
+	}
+	authorize := account.Authorize
+	authId, _ := strconv.ParseInt(authorize, 10, 64)
+	authNodeList, dbErr := d.ProjectAuthNodeDomain.AuthNodeList(authId)
+	if dbErr != nil {
+		return nil, model.DBError
+	}
+	return authNodeList, nil
+}
+
 //func (d *ProjectAuthDomain) Save(conn database.DbConn, authId int64, nodes []string) *errs.BError {
 //	err := d.ProjectAuthNodeDomain.Save(context.Background(), conn, authId, nodes)
 //	if err != nil {
@@ -77,5 +96,6 @@ func NewProjectAuthDomain() *ProjectAuthDomain {
 		UserRpcDomain:         NewUserRpcDomain(),
 		projectNodeDomain:     NewProjectNodeDomain(),
 		ProjectAuthNodeDomain: NewProjectAuthNodeDomain(),
+		accountDomain:         NewAccountDomain(),
 	}
 }

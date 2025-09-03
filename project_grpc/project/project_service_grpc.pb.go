@@ -27,6 +27,7 @@ type ProjectServiceClient interface {
 	UpdateProject(ctx context.Context, in *UpdateProjectMessage, opts ...grpc.CallOption) (*UpdateProjectResponse, error)
 	GetLogBySelfProject(ctx context.Context, in *ProjectRpcMessage, opts ...grpc.CallOption) (*ProjectLogResponse, error)
 	NodeList(ctx context.Context, in *ProjectRpcMessage, opts ...grpc.CallOption) (*ProjectNodeResponseMessage, error)
+	FindProjectByMemberId(ctx context.Context, in *ProjectRpcMessage, opts ...grpc.CallOption) (*FindProjectByMemberIdResponse, error)
 }
 
 type projectServiceClient struct {
@@ -127,6 +128,15 @@ func (c *projectServiceClient) NodeList(ctx context.Context, in *ProjectRpcMessa
 	return out, nil
 }
 
+func (c *projectServiceClient) FindProjectByMemberId(ctx context.Context, in *ProjectRpcMessage, opts ...grpc.CallOption) (*FindProjectByMemberIdResponse, error) {
+	out := new(FindProjectByMemberIdResponse)
+	err := c.cc.Invoke(ctx, "/project.service.v1.ProjectService/FindProjectByMemberId", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ProjectServiceServer is the server API for ProjectService service.
 // All implementations must embed UnimplementedProjectServiceServer
 // for forward compatibility
@@ -141,6 +151,7 @@ type ProjectServiceServer interface {
 	UpdateProject(context.Context, *UpdateProjectMessage) (*UpdateProjectResponse, error)
 	GetLogBySelfProject(context.Context, *ProjectRpcMessage) (*ProjectLogResponse, error)
 	NodeList(context.Context, *ProjectRpcMessage) (*ProjectNodeResponseMessage, error)
+	FindProjectByMemberId(context.Context, *ProjectRpcMessage) (*FindProjectByMemberIdResponse, error)
 	mustEmbedUnimplementedProjectServiceServer()
 }
 
@@ -177,6 +188,9 @@ func (*UnimplementedProjectServiceServer) GetLogBySelfProject(context.Context, *
 }
 func (*UnimplementedProjectServiceServer) NodeList(context.Context, *ProjectRpcMessage) (*ProjectNodeResponseMessage, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method NodeList not implemented")
+}
+func (*UnimplementedProjectServiceServer) FindProjectByMemberId(context.Context, *ProjectRpcMessage) (*FindProjectByMemberIdResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method FindProjectByMemberId not implemented")
 }
 func (*UnimplementedProjectServiceServer) mustEmbedUnimplementedProjectServiceServer() {}
 
@@ -364,6 +378,24 @@ func _ProjectService_NodeList_Handler(srv interface{}, ctx context.Context, dec 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ProjectService_FindProjectByMemberId_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ProjectRpcMessage)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProjectServiceServer).FindProjectByMemberId(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/project.service.v1.ProjectService/FindProjectByMemberId",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProjectServiceServer).FindProjectByMemberId(ctx, req.(*ProjectRpcMessage))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _ProjectService_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "project.service.v1.ProjectService",
 	HandlerType: (*ProjectServiceServer)(nil),
@@ -407,6 +439,10 @@ var _ProjectService_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "NodeList",
 			Handler:    _ProjectService_NodeList_Handler,
+		},
+		{
+			MethodName: "FindProjectByMemberId",
+			Handler:    _ProjectService_FindProjectByMemberId_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
