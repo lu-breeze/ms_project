@@ -1,6 +1,7 @@
 package rpc
 
 import (
+	"go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc"
 	"go_project/ms_project/project_common/discovery"
 	"go_project/ms_project/project_common/logs"
 	"go_project/ms_project/project_grpc/user/login"
@@ -17,7 +18,11 @@ func InitRpcUserClient() {
 	etcdRegister := discovery.NewResolver(config.C.EtcdConfig.Addrs, logs.LG)
 	resolver.Register(etcdRegister)
 
-	conn, err := grpc.Dial("etcd:///user", grpc.WithTransportCredentials(insecure.NewCredentials()))
+	conn, err := grpc.Dial(
+		"etcd:///user",
+		grpc.WithTransportCredentials(insecure.NewCredentials()),
+		grpc.WithUnaryInterceptor(otelgrpc.UnaryClientInterceptor()),
+	)
 	if err != nil {
 		log.Fatalf("failed to connect: %v", err)
 	}

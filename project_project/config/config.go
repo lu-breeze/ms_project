@@ -1,7 +1,9 @@
 package config
 
 import (
+	"bytes"
 	"fmt"
+	"github.com/nacos-group/nacos-sdk-go/v2/vo"
 	"go_project/ms_project/project_common/logs"
 	"log"
 	"os"
@@ -18,6 +20,7 @@ type Config struct {
 	EtcdConfig  *EtcdConfig
 	MysqlConfig *MysqlConfig
 	JwtConfig   *JwtConfig
+	DbConfig    DbConfig
 }
 
 var C = InitConfig()
@@ -44,6 +47,13 @@ type MysqlConfig struct {
 	Host     string
 	Port     int
 	Db       string
+	Name     string
+}
+
+type DbConfig struct {
+	Master     MysqlConfig
+	Slave      []MysqlConfig
+	Separation bool
 }
 
 type JwtConfig struct {
@@ -55,25 +65,65 @@ type JwtConfig struct {
 
 func InitConfig() *Config {
 	conf := &Config{viper: viper.New()}
-	workDir, _ := os.Getwd()
-	conf.viper.SetConfigName("config") // 配置文件名
-	conf.viper.SetConfigType("yaml")   // 配置文件类型
-	conf.viper.AddConfigPath("/etc/ms_project/user")
-	conf.viper.AddConfigPath(workDir + "/config") // 配置文件路径
-	fmt.Println("viper使用的配置文件路径:", conf.viper.ConfigFileUsed())
-	fmt.Printf("viper config: %#v\n", conf.viper.AllSettings())
-	//conf.viper.AddConfigPath("D:\\go_project\\ms_project\\project_user\\config") // 兼容在上级目录的配置文件
-	//conf.viper.AddConfigPath("./config")
-	if err := conf.viper.ReadInConfig(); err != nil {
-		log.Fatalln("user读取配置文件失败:", err)
+	//先从nacos读取配置
+	nacosClient := InitNacosClient()
+	configYaml, err2 := nacosClient.confClient.GetConfig(vo.ConfigParam{
+		DataId: "config.yaml",
+		Group:  nacosClient.group,
+	})
+	if err2 != nil {
+		log.Fatalln("从nacos读取配置失败:", err2)
 	}
-	conf.ReadServerConfig()
-	conf.ReadGrpcConfig()
-	conf.ReadEtcdConfig()
-	conf.InitZapLog()
-	conf.InitMysqlConfig()
-	conf.InitJwtConfig()
+	err2 = nacosClient.confClient.ListenConfig(vo.ConfigParam{
+		DataId: "config.yaml",
+		Group:  nacosClient.group,
+		OnChange: func(namespace, group, dataId, data string) {
+			log.Printf("配置文件变更, namespace: %s, group: %s, dataId: %s, data: %s", namespace, group, dataId, data)
+			err := conf.viper.ReadConfig(bytes.NewBuffer([]byte(data)))
+			if err != nil {
+				log.Printf("配置文件变更后读取配置失败: %v", err)
+			}
+			conf.ReLoadAllConfig()
+		},
+	})
+	if err2 != nil {
+		log.Fatalln("监听nacos配置失败:", err2)
+	}
+	conf.viper.SetConfigType("yaml")
+	if configYaml != "" {
+		err := conf.viper.ReadConfig(bytes.NewBuffer([]byte(configYaml)))
+		if err != nil {
+			log.Fatalln(err)
+		}
+		//log.Printf("project从nacos读取配置: %s\n", configYaml)
+	} else {
+		workDir, _ := os.Getwd()
+		conf.viper.SetConfigName("config") // 配置文件名
+		conf.viper.SetConfigType("yaml")   // 配置文件类型
+		conf.viper.AddConfigPath("/etc/ms_project/user")
+		conf.viper.AddConfigPath(workDir + "/config") // 配置文件路径
+		if err := conf.viper.ReadInConfig(); err != nil {
+
+			log.Fatalln("user读取配置文件失败:", err)
+		}
+		fmt.Println("project中viper使用的配置文件路径:", conf.viper.ConfigFileUsed())
+		fmt.Printf("project中viper config: %#v\n", conf.viper.AllSettings())
+	}
+	conf.ReLoadAllConfig()
 	return conf
+}
+
+func (c *Config) ReLoadAllConfig() {
+	c.ReadServerConfig()
+	c.InitZapLog()
+	c.ReadGrpcConfig()
+	c.ReadEtcdConfig()
+	c.InitMysqlConfig()
+	c.InitJwtConfig()
+	c.InitDbConfig()
+	//重新创建相关的客户端
+	c.ReConnRedis()
+	c.ReConnMysql()
 }
 
 func (c *Config) ReadServerConfig() {
@@ -146,4 +196,24 @@ func (c *Config) InitJwtConfig() {
 		RefreshSecret: c.viper.GetString("jwt.refreshSecret"),
 	}
 	c.JwtConfig = jwt
+}
+
+func (c *Config) InitDbConfig() {
+	mc := DbConfig{}
+	mc.Separation = c.viper.GetBool("db.separation")
+	var slaves []MysqlConfig
+	err := c.viper.UnmarshalKey("db.slave", &slaves)
+	if err != nil {
+		panic(err)
+	}
+	master := MysqlConfig{
+		Username: c.viper.GetString("db.master.username"),
+		Password: c.viper.GetString("db.master.password"),
+		Host:     c.viper.GetString("db.master.host"),
+		Port:     c.viper.GetInt("db.master.port"),
+		Db:       c.viper.GetString("db.master.db"),
+	}
+	mc.Master = master
+	mc.Slave = slaves
+	c.DbConfig = mc
 }

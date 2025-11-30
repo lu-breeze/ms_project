@@ -2,40 +2,78 @@ package gorms
 
 import (
 	"context"
-	"fmt"
-	"go_project/ms_project/project_project/config"
-	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
-	"gorm.io/gorm/logger"
-	"log"
 )
 
 var _db *gorm.DB
 
-func init() {
-	//配置MySQL连接参数
-	username := config.C.MysqlConfig.Username //账号
-	password := config.C.MysqlConfig.Password //密码
-	host := config.C.MysqlConfig.Host         //数据库地址，可以是Ip或者域名
-	port := config.C.MysqlConfig.Port         //数据库端口
-	Dbname := config.C.MysqlConfig.Db         //数据库名
-	dsn := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?"+
-		"charset=utf8&parseTime=True&loc=Local", username, password, host, port, Dbname)
-	var err error
-	_db, err = gorm.Open(mysql.Open(dsn), &gorm.Config{
-		//设置日志模式为 Info，输出SQL执行信息
-		Logger: logger.Default.LogMode(logger.Info),
-	})
-	if err != nil {
-		panic("连接数据库失败, error=" + err.Error())
-	} else {
-		log.Println("mysql连接成功")
+/*
+	func init() {
+		if config.C.DbConfig.Separation {
+			//读写分离
+			username := config.C.DbConfig.Master.Username //账号
+			password := config.C.DbConfig.Master.Password //密码
+			host := config.C.DbConfig.Master.Host         //数据库地址，可以是Ip或者域名
+			port := config.C.DbConfig.Master.Port         //数据库端口
+			Dbname := config.C.DbConfig.Master.Db         //数据库名
+			dsn := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?"+
+				"charset=utf8&parseTime=True&loc=Local", username, password, host, port, Dbname)
+			var err error
+			_db, err = gorm.Open(mysql.Open(dsn), &gorm.Config{
+				Logger: logger.Default.LogMode(logger.Info), //设置日志模式为 Info
+			})
+			if err != nil {
+				panic("连接数据库失败, error=" + err.Error())
+			}
+			//slave
+			replicas := []gorm.Dialector{}
+			for _, v := range config.C.DbConfig.Slave {
+				username := v.Username //账号
+				password := v.Password //密码
+				host := v.Host         //数据库地址，可以是Ip或者域名
+				port := v.Port         //数据库端口
+				Dbname := v.Db         //数据库名
+				dsn := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8&parseTime=True&loc=Local", username, password, host, port, Dbname)
+				cfg := mysql.Config{
+					DSN: dsn,
+				}
+				replicas = append(replicas, mysql.New(cfg))
+			}
+			err = _db.Use(dbresolver.Register(dbresolver.Config{
+				Sources: []gorm.Dialector{mysql.New(mysql.Config{
+					DSN: dsn,
+				})},
+				Replicas: replicas,
+				Policy:   dbresolver.RandomPolicy{}, //随机选择
+			}).SetMaxOpenConns(200).SetMaxIdleConns(10))
+		} else {
+			//配置MySQL连接参数
+			username := config.C.MysqlConfig.Username //账号
+			password := config.C.MysqlConfig.Password //密码
+			host := config.C.MysqlConfig.Host         //数据库地址，可以是Ip或者域名
+			port := config.C.MysqlConfig.Port         //数据库端口
+			Dbname := config.C.MysqlConfig.Db         //数据库名
+			dsn := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?"+
+				"charset=utf8&parseTime=True&loc=Local", username, password, host, port, Dbname)
+			var err error
+			_db, err = gorm.Open(mysql.Open(dsn), &gorm.Config{
+				//设置日志模式为 Info，输出SQL执行信息
+				Logger: logger.Default.LogMode(logger.Info),
+			})
+			if err != nil {
+				panic("连接数据库失败, error=" + err.Error())
+			} else {
+				log.Println("mysql连接成功")
+			}
+		}
 	}
-
-}
-
+*/
 func GetDB() *gorm.DB {
 	return _db
+}
+
+func SetDB(db *gorm.DB) {
+	_db = db
 }
 
 type GormConn struct {

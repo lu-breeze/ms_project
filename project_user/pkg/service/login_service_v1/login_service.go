@@ -73,7 +73,7 @@ func (ls *LoginService) Register(ctx context.Context, msg *login.RegisterMessage
 	c := context.Background()
 	//校验验证码
 	redisCode, err := ls.cache.Get(c, model.RegisterRedisKey+msg.Mobile)
-	//TODO
+	//TODO redis修正
 	if err == redis.Nil {
 		return nil, errs.GrpcError(model.CaptchaNotExist)
 	}

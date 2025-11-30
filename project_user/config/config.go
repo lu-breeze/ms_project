@@ -60,13 +60,12 @@ func InitConfig() *Config {
 	conf.viper.SetConfigType("yaml")   // 配置文件类型
 	conf.viper.AddConfigPath("/etc/ms_project/user")
 	conf.viper.AddConfigPath(workDir + "/config") // 配置文件路径
-	fmt.Println("viper使用的配置文件路径:", conf.viper.ConfigFileUsed())
-	fmt.Printf("viper config: %#v\n", conf.viper.AllSettings())
-	//conf.viper.AddConfigPath("D:\\go_project\\ms_project\\project_user\\config") // 兼容在上级目录的配置文件
-	//conf.viper.AddConfigPath("./config")
+	//conf.viper.AddConfigPath("D:\\go_project\\ms_project\\project_user\\config")
 	if err := conf.viper.ReadInConfig(); err != nil {
 		log.Fatalln("user读取配置文件失败:", err)
 	}
+	fmt.Println("user中viper使用的配置文件路径:", conf.viper.ConfigFileUsed())
+	fmt.Printf("user中viper config: %#v\n", conf.viper.AllSettings())
 	conf.ReadServerConfig()
 	conf.ReadGrpcConfig()
 	conf.ReadEtcdConfig()
