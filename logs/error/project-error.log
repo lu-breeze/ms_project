@@ -779,3 +779,5 @@
 {"level":"FATAL","time":"2025-11-27T16:27:00.485+0800","caller":"config/gorm.go:29","msg":"连接mysql数据库失败","error":"dial tcp 127.0.0.1:33091: connectex: No connection could be made because the target machine actively refused it."}
 {"level":"ERROR","time":"2025-11-27T16:29:10.341+0800","caller":"config/gorm.go:29","msg":"连接mysql数据库失败","error":"dial tcp 127.0.0.1:33091: connectex: No connection could be made because the target machine actively refused it."}
 {"level":"ERROR","time":"2025-11-27T16:34:07.492+0800","caller":"config/gorm.go:29","msg":"连接mysql数据库失败","error":"dial tcp 127.0.0.1:33091: connectex: No connection could be made because the target machine actively refused it."}
+{"level":"ERROR","time":"2025-12-01T15:38:14.994+0800","caller":"config/gorm.go:29","msg":"连接mysql数据库失败","error":"dial tcp 127.0.0.1:33091: connectex: No connection could be made because the target machine actively refused it."}
+{"level":"ERROR","time":"2025-12-01T15:38:19.987+0800","caller":"config/gorm.go:29","msg":"连接mysql数据库失败","error":"dial tcp 127.0.0.1:33091: connectex: No connection could be made because the target machine actively refused it."}

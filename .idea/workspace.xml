@@ -5,14 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="05452fb6-d85f-4f76-b7db-931fd499fbd5" name="更改" comment="">
-      <change afterPath="$PROJECT_DIR$/project_api/tracing/jaeger.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project_project/config/bootstrap.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project_project/config/bootstrap.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project_project/config/gorm.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project_project/config/nacos.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project_project/config/redis.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project_project/tracing/jaeger.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project_user/tracing/jaeger.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project_common/kk/kafka_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project_common/kk/receiver.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project_common/kk/sender.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docker-compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yaml" afterDir="false" />
@@ -20,26 +15,10 @@
       <change beforePath="$PROJECT_DIR$/logs/debug/project-debug.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/debug/project-debug.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/error/project-error.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/error/project-error.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/info/project-info.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/info/project-info.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project_api/api/project/rpc.go" beforeDir="false" afterPath="$PROJECT_DIR$/project_api/api/project/rpc.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project_api/api/rpc/user_rpc.go" beforeDir="false" afterPath="$PROJECT_DIR$/project_api/api/rpc/user_rpc.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project_api/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/project_api/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project_api/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/project_api/go.sum" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project_api/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/project_api/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project_common/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/project_common/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project_common/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/project_common/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project_project/config/bootstrap.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/project_project/config/bootstrap.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/project_project/config/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/project_project/config/config.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project_project/config/config.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/project_project/config/config.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project_project/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/project_project/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project_project/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/project_project/go.sum" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project_project/internal/dao/redis.go" beforeDir="false" afterPath="$PROJECT_DIR$/project_project/internal/dao/redis.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project_project/internal/database/gorms/gorms.go" beforeDir="false" afterPath="$PROJECT_DIR$/project_project/internal/database/gorms/gorms.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project_project/internal/interceptor/cache.go" beforeDir="false" afterPath="$PROJECT_DIR$/project_project/internal/interceptor/cache.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project_project/internal/rpc/user_rpc.go" beforeDir="false" afterPath="$PROJECT_DIR$/project_project/internal/rpc/user_rpc.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project_project/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/project_project/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project_project/router/router.go" beforeDir="false" afterPath="$PROJECT_DIR$/project_project/router/router.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project_user/config/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/project_user/config/config.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project_user/internal/interceptor/cache.go" beforeDir="false" afterPath="$PROJECT_DIR$/project_user/internal/interceptor/cache.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project_user/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/project_user/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project_user/pkg/service/login_service_v1/login_service.go" beforeDir="false" afterPath="$PROJECT_DIR$/project_user/pkg/service/login_service_v1/login_service.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project_user/router/router.go" beforeDir="false" afterPath="$PROJECT_DIR$/project_user/router/router.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,6 +66,9 @@
     "Go 测试.go_project/ms_project/project_common/code_gen 中的 TestGenStruct.executor": "Run",
     "Go 测试.go_project/ms_project/project_common/encrypts 中的 TestEncrypt.executor": "Run",
     "Go 测试.go_project/ms_project/project_common/jwts 中的 TestParseToken.executor": "Run",
+    "Go 测试.go_project/ms_project/project_common/kk 中的 TestConsumer.executor": "Run",
+    "Go 测试.go_project/ms_project/project_common/kk 中的 TestProducer (1).executor": "Run",
+    "Go 测试.go_project/ms_project/project_common/kk 中的 TestProducer.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.go.formatter.settings.were.checked": "true",
     "RunOnceActivity.go.migrated.go.modules.settings": "true",
@@ -118,15 +100,7 @@
       <recent name="D:\go_project\ms_project\project_api\pkg\model" />
     </key>
   </component>
-  <component name="RunManager" selected="Go 构建.go build go_project/ms_project/project_project">
-    <configuration name="go build go_project/ms_project/project_api" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
-      <module name="ms_project" />
-      <working_directory value="$PROJECT_DIR$/project_api" />
-      <kind value="PACKAGE" />
-      <package value="go_project/ms_project/project_api" />
-      <directory value="$PROJECT_DIR$" />
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Go 测试.go_project/ms_project/project_common/kk 中的 TestProducer (1)">
     <configuration name="go build go_project/ms_project/project_project" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="ms_project" />
       <working_directory value="$PROJECT_DIR$/project_project" />
@@ -143,30 +117,53 @@
       <directory value="$PROJECT_DIR$" />
       <method v="2" />
     </configuration>
-    <configuration name="go build main.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+    <configuration name="go_project/ms_project/project_common/kk 中的 TestConsumer" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="ms_project" />
-      <working_directory value="$PROJECT_DIR$/project_project" />
-      <kind value="FILE" />
+      <working_directory value="$PROJECT_DIR$/project_common/kk" />
+      <root_directory value="$PROJECT_DIR$/project_common" />
+      <kind value="PACKAGE" />
+      <package value="go_project/ms_project/project_common/kk" />
       <directory value="$PROJECT_DIR$" />
-      <filePath value="$PROJECT_DIR$/project_project/main.go" />
-      <method v="2" />
-    </configuration>
-    <configuration name="go test project_user" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
-      <module name="ms_project" />
-      <working_directory value="$PROJECT_DIR$/project_user" />
-      <kind value="DIRECTORY" />
-      <directory value="$PROJECT_DIR$/project_user" />
       <filePath value="$PROJECT_DIR$" />
       <framework value="gotest" />
+      <pattern value="^\QTestConsumer\E$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="go_project/ms_project/project_common/kk 中的 TestProducer (1)" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="ms_project" />
+      <working_directory value="$PROJECT_DIR$/project_common/kk" />
+      <root_directory value="$PROJECT_DIR$/project_common" />
+      <kind value="PACKAGE" />
+      <package value="go_project/ms_project/project_common/kk" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <pattern value="^\QTestProducer\E$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="go_project/ms_project/project_common/kk 中的 TestProducer" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="ms_project" />
+      <working_directory value="$PROJECT_DIR$/project_common/kk" />
+      <root_directory value="$PROJECT_DIR$/project_common" />
+      <kind value="PACKAGE" />
+      <package value="go_project/ms_project/project_common/kk" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <pattern value="^\QTestProducer\E$" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
+      <deployment type="docker-compose.yml" />
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Go 测试.go_project/ms_project/project_common/kk 中的 TestProducer (1)" />
+        <item itemvalue="Go 测试.go_project/ms_project/project_common/kk 中的 TestProducer" />
+        <item itemvalue="Go 测试.go_project/ms_project/project_common/kk 中的 TestConsumer" />
         <item itemvalue="Go 构建.go build go_project/ms_project/project_project" />
         <item itemvalue="Go 构建.go build go_project/ms_project/project_user" />
-        <item itemvalue="Go 构建.go build go_project/ms_project/project_api" />
-        <item itemvalue="Go 构建.go build main.go" />
-        <item itemvalue="Go 测试.go test project_user" />
       </list>
     </recent_temporary>
   </component>

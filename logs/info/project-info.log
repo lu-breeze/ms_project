@@ -12703,3 +12703,22 @@
 {"level":"INFO","time":"2025-11-30T17:56:16.580+0800","caller":"midd/log_time.go:15","msg":"/project/project/selfList 用时 30 ms"}
 {"level":"INFO","time":"2025-11-30T17:56:16.580+0800","caller":"midd/log_time.go:15","msg":"/project/task/selfList 用时 28 ms"}
 {"level":"INFO","time":"2025-11-30T17:56:16.581+0800","caller":"midd/log_time.go:15","msg":"/project/project/getLogBySelfProject 用时 28 ms"}
+{"level":"INFO","time":"2025-11-30T17:58:16.085+0800","caller":"midd/log_time.go:15","msg":"/project/notify/noReads 用时 0 ms"}
+{"level":"INFO","time":"2025-11-30T17:58:16.093+0800","caller":"midd/log_time.go:15","msg":"/project/events/myList 用时 0 ms"}
+{"level":"INFO","time":"2025-11-30T17:58:16.168+0800","caller":"midd/log_time.go:15","msg":"/project/organization/_getOrgList 用时 83 ms"}
+{"level":"INFO","time":"2025-11-30T17:58:16.202+0800","caller":"midd/log_time.go:15","msg":"/project/project/selfList 用时 117 ms"}
+{"level":"INFO","time":"2025-11-30T17:58:16.205+0800","caller":"midd/log_time.go:15","msg":"/project/task/selfList 用时 119 ms"}
+{"level":"INFO","time":"2025-11-30T17:58:16.205+0800","caller":"midd/log_time.go:15","msg":"/project/account 用时 119 ms"}
+{"level":"INFO","time":"2025-11-30T17:58:16.211+0800","caller":"midd/log_time.go:15","msg":"/project/project/getLogBySelfProject 用时 125 ms"}
+{"level":"INFO","time":"2025-11-30T17:58:17.307+0800","caller":"midd/log_time.go:15","msg":"/project/project_template 用时 27 ms"}
+{"level":"INFO","time":"2025-11-30T17:58:17.312+0800","caller":"midd/log_time.go:15","msg":"/project/project 用时 33 ms"}
+{"level":"INFO","time":"2025-11-30T17:58:17.980+0800","caller":"midd/log_time.go:15","msg":"/project/department 用时 23 ms"}
+{"level":"INFO","time":"2025-11-30T17:58:17.983+0800","caller":"midd/log_time.go:15","msg":"/project/account 用时 26 ms"}
+{"level":"INFO","time":"2025-11-30T17:58:18.627+0800","caller":"midd/log_time.go:15","msg":"/project/menu/menu 用时 21 ms"}
+{"level":"INFO","time":"2025-11-30T17:58:19.392+0800","caller":"midd/log_time.go:15","msg":"/project/events/myList 用时 1 ms"}
+{"level":"INFO","time":"2025-11-30T17:58:19.418+0800","caller":"midd/log_time.go:15","msg":"/project/account 用时 27 ms"}
+{"level":"INFO","time":"2025-11-30T17:58:19.425+0800","caller":"midd/log_time.go:15","msg":"/project/project/selfList 用时 34 ms"}
+{"level":"INFO","time":"2025-11-30T17:58:19.425+0800","caller":"midd/log_time.go:15","msg":"/project/task/selfList 用时 34 ms"}
+{"level":"INFO","time":"2025-11-30T17:58:19.428+0800","caller":"midd/log_time.go:15","msg":"/project/project/getLogBySelfProject 用时 37 ms"}
+{"level":"ERROR","time":"2025-12-01T15:38:14.994+0800","caller":"config/gorm.go:29","msg":"连接mysql数据库失败","error":"dial tcp 127.0.0.1:33091: connectex: No connection could be made because the target machine actively refused it."}
+{"level":"ERROR","time":"2025-12-01T15:38:19.987+0800","caller":"config/gorm.go:29","msg":"连接mysql数据库失败","error":"dial tcp 127.0.0.1:33091: connectex: No connection could be made because the target machine actively refused it."}

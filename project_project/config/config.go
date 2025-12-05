@@ -71,6 +71,7 @@ func InitConfig() *Config {
 		DataId: "config.yaml",
 		Group:  nacosClient.group,
 	})
+	//fmt.Println("从nacos读取的配置:", configYaml)
 	if err2 != nil {
 		log.Fatalln("从nacos读取配置失败:", err2)
 	}
@@ -95,7 +96,7 @@ func InitConfig() *Config {
 		if err != nil {
 			log.Fatalln(err)
 		}
-		//log.Printf("project从nacos读取配置: %s\n", configYaml)
+		log.Printf("project从nacos读取配置: %s\n", configYaml)
 	} else {
 		workDir, _ := os.Getwd()
 		conf.viper.SetConfigName("config") // 配置文件名
